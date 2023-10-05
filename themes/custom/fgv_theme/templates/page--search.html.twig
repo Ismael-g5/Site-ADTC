@@ -1,0 +1,49 @@
+{{page.navigation}}
+<style>
+li > h3 > a{
+  color: #014BBB;
+  text-decoration: none;
+  background-color: transparent;
+  font-size: 1.2rem;
+}
+
+ol > li > p > span{
+  font-style: italic;
+}
+
+</style>
+<div class="py-5" style="	background-image: url(&quot;{{base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-white">Busca</h1>
+    </div>
+  </div>
+</div>
+</div>
+<form class="views-exposed-form p-2" data-drupal-selector="search-form" action="#" method="get" id="search-form" accept-charset="UTF-8">
+
+<div class="d-block d-sm-nonept-3 py-3" style="">
+  <div class="container">
+    <div class="row mx-0 bg-white py-3">
+      <label class="text-dark"><b>Resultados para:</b></label>
+      <div class="input-group col-md-12 px-0">
+        {# <input class="form-control py-3" type="search" id="example-search-input"> #}
+        <input data-drupal-selector="edit-keys" class="form-control py-3" type="search" id="edit-keys" name="keys" value="" size="30" maxlength="255" title="" data-toggle="tooltip" data-original-title="Enter the terms you wish to search for.">
+        <span class="input-group-append">
+          {# <button class="btn btn-outline-white border" type="button"> #}
+          <button type="submit" name="op" value="Search" class="btn btn-outline-white border"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg></button>          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+
+{{page.content}}
+{{page.footer}}
+
+<script>
+  $('.search-form').addClass('d-none')
+  $('ol').addClass('container py-2')
+</script>

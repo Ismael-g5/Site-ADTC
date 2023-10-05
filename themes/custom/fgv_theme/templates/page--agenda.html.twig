@@ -1,0 +1,192 @@
+{#
+PÁGINA AGENDA
+#}
+<script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+
+{{page.navigation}}
+<style>
+/* centraliza a data na agenda */
+.view-content > h3{
+	display: none;
+    justify-content: center;
+	margin-top: 1%;
+}
+.view-empty {
+  font-size: 1.6rem !important;
+  font-weight: normal !important;
+  color: #6c757d !important;
+  font-style: initial !important;
+}
+body{
+  background-color: rgb(245, 246, 249) !important;
+}
+.btn:not(:disabled):not(.disabled):active, .btn:not(:disabled):not(.disabled).active {
+    box-shadow: inset 0 0px 0px rgba(0, 0, 0, 0) !important;
+}
+
+/* css da mensagem de eventos nao cadastrados */
+.d-flex.flex-column.view.view-agenda.view-id-agenda.view-display-id-page_1 > .view-empty{
+  font-style: normal !important;
+  text-align: center;
+}
+</style>
+
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-white">Agenda</h1>
+			</div>
+		</div>
+	</div>
+</div>
+  {# filtros #}
+  {{page.content_busca_agenda}}
+  <div style="background-color: rgb(245, 246, 249); height: 1rem;"> </div>
+  <div class="" style="background-color: #F5F6F9 !important;">
+  <div class="container py-3">
+  <div class="row mx-0 py-3 px-3 bg-white">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-2">
+            {# <div class="form-group"><label style="font-weight: 400;">Ano</label> #}
+              <div class="form-group">
+                {# <select data-drupal-selector="edit-field-ano-value" class="form-control form-select select" id="edit-field-ano-value" name="field_ano_value" aria-invalid="true" style="height: 3rem;"></select> #}
+              </div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            {# <div class="form-group"><label style="font-weight: 400;">Mes</label> #}
+              <div class="form-group">
+                {# <select data-drupal-selector="edit-field-mes-evento-value" class="form-control form-select select" id="edit-field-mes-evento-value" name="field_mes_evento_value" style="height: 3rem;"></select> #}
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10">
+            <div class="form-group"><label style="font-weight: 400;">Pesquisar</label>
+              {# <div class="select-wrapper"> #}
+                <input type="text" class="form-control py-3 mr-1" placeholder="Palavra-chave" aria-label="Recipient's username" id="textoBusca" name="edit-keys" data-drupal-selector="edit-keys">
+              {# </div> #}
+            </div>
+          </div>
+          <div class="col-lg-2 d-flex flex-row justify-content-center align-items-center" style="align-items: end !important;">
+            <button class="btn btn-yellow text-dark mt-2 px-5 py-2 col-lg-12 d-flex justify-content-center button js-form-submit form-submit" data-drupal-selector="edit-submit-agenda" type="submit" id="edit-submit-agenda" value="Apply" data-once="views-ajax" onclick="buscaTexto();">Buscar</button>
+          </div>
+        </div>
+        {# <p class="text-muted pt-2 small"><i>* Os eventos da Agenda começam em Dezembro de 2022.</i></p> #}
+      </div>
+    </div>
+  </div>
+  {# agenda #}
+  <div class="row d-flex align-items-center mx-auto pb-2 justify-content-center container">
+    <div class="px-0 col-lg-9" style="">
+      <div class="card border-0">
+        <div class="card-header bg-light border-bottom-0">
+          <div class="row">
+            <div class="justify-content-center align-items-center col-lg-12 d-flex flex-row">
+              <button onclick="mudaAno('anoPrev');" class="btn px-2 mr-2 text-primary bg-light" id="anoPrev"><i class="bi bi-chevron-left text-body font-weight-bold"></i></button>
+                <h3 class="mb-0 mr-2 text-center text-dark calendar-title" id="anoAtual" value="----">----</h3>
+              <button onclick="mudaAno('anoNext');" class="btn px-2 mr-2 text-primary bg-light" id="anoNext"><i class="bi bi-chevron-right text-body font-weight-bold"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bg-light py-0 pb-4">
+          <div class="row mt-1 mx-auto">
+            <div class="align-items-center d-flex justify-content-between px-0 col-lg-4">
+              <a class="btn calendar-item mes" id="0" >Jan</a>
+              <a class="btn calendar-item mes" id="1" >Fev</a>
+              <a class="btn calendar-item mes" id="2" >Mar</a>
+              <a class="btn calendar-item mes" id="3" >Abr</a>
+            </div>
+            <div class="align-items-center d-flex justify-content-between px-0 col-lg-4">
+              <a class="btn calendar-item mes" id="4" >Mai</a>
+              <a class="btn calendar-item mes" id="5" >Jun</a>
+              <a class="btn calendar-item mes" id="6" >Jul</a>
+              <a class="btn calendar-item mes" id="7" >Ago</a>
+            </div>
+            <div class="align-items-center d-flex justify-content-between px-0 col-lg-4">
+              <a class="btn calendar-item mes" id="8" >Set</a>
+              <a class="btn calendar-item mes" id="9" >Out</a>
+              <a class="btn calendar-item mes" id="10" >Nov</a>
+              <a class="btn calendar-item mes" id="11" >Dez</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{page.content}}
+{{page.footer}}
+
+<script>
+
+  //----------------------- funcionamento da agenda-------------
+  // busca texto
+  function buscaTexto(){
+    $('[name="field_cidade_s__value"]').val($('#textoBusca').val())
+    verificaClique()
+  }
+
+  var dataAtual = new Date(),
+  mes = dataAtual.getMonth(),
+  ano = dataAtual.getFullYear();
+
+  function resetaValores(){
+    // seta o mes no input
+    $('[name="field_mes_evento_value"]').val(mes)
+    // seleciona o mes e coloca a classe pra colorir ele
+    $('.align-items-center.d-flex.justify-content-between.px-0.col-lg-4 > a').each(function (){
+      if($(this).attr('id') == mes){
+        $(this).addClass('active coloWhite')
+        return
+      }
+    })
+    // seta o ano no input
+    $('[name="field_ano_value"]').val(ano)
+    // seta o ano na label
+    $('#anoAtual').attr('value', ano)
+    $('#anoAtual').html(ano)
+
+    // clica na busca e traz ops eventos do mes atual
+    verificaClique()
+  }
+  // muda inputs ao carregar a pagina, com ano e mes atuais
+  window.addEventListener("load", (event) => {
+    resetaValores();
+  });
+
+  // adiciona classe actv nos itens clicados na navbar
+  $('.align-items-center.d-flex.justify-content-between.px-0.col-lg-4 > a').click(function(){
+    $('.align-items-center.d-flex.justify-content-between.px-0.col-lg-4 > a').each(function (){
+      if($(this).hasClass('active')){
+        $(this).removeClass('active coloWhite')
+      }
+    })
+    $(this).addClass('active coloWhite')
+  })
+
+  // muda select conforme clicado no mes
+  $('.mes').on('click', function(e) {
+    $('[name="field_mes_evento_value"]').val($(this).attr('id'))
+    verificaClique()
+  })
+
+  // muda select conforme clicado no ano
+  function mudaAno(direction){
+    var anoAtual = $('#anoAtual').attr('value')
+
+    direction == 'anoNext' ? anoAtual++ : anoAtual--
+    anoAtual >= 2022 ? anoAtual : anoAtual = 2022
+
+    $('#anoAtual').attr('value', anoAtual)
+    $('#anoAtual').html(anoAtual)
+    $('[name="field_ano_value"]').val(anoAtual)
+    verificaClique()
+  }
+
+  // clica na busca
+  function verificaClique(){
+    $('.button.js-form-submit.form-submit.btn-default.btn').trigger('click')
+    return
+  }
+</script>

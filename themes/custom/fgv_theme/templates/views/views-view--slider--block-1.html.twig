@@ -1,0 +1,105 @@
+{#
+/**
+ * @file
+ * Theme override for a main view template.
+ *
+ * Available variables:
+ * - attributes: Remaining HTML attributes for the element.
+ * - css_name: A css-safe version of the view name.
+ * - css_class: The user-specified classes names, if any.
+ * - header: The optional header.
+ * - footer: The optional footer.
+ * - rows: The results of the view query, if any.
+ * - empty: The content to display if there are no rows.
+ * - pager: The optional pager next/prev links to display.
+ * - exposed: Exposed widget form/info to display.
+ * - feed_icons: Optional feed icons to display.
+ * - more: An optional link to the next page of results.
+ * - title: Title of the view, only used when displaying in the admin preview.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the view title.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the view title.
+ * - attachment_before: An optional attachment view to be displayed before the
+ *   view content.
+ * - attachment_after: An optional attachment view to be displayed after the
+ *   view content.
+ * - dom_id: Unique id for every view being printed to give unique class for
+ *   Javascript.
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-id-' ~ id,
+    'view-display-id-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if title %}
+    {{ title }}
+  {% endif %}
+  {{ title_suffix }}
+  {% if header %}
+    <div class="view-header">
+      {{ header }}
+    </div>
+  {% endif %}
+  {% if exposed %}
+    <div class="view-filters">
+      {{ exposed }}
+    </div>
+  {% endif %}
+  {% if attachment_before %}
+    <div class="attachment attachment-before">
+      {{ attachment_before }}
+    </div>
+  {% endif %}
+
+  {% if rows %}
+    <div class="carousel-prev">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18.629" height="16.302" viewBox="0 0 18.629 16.302">
+        <path id="arrow-left-circle" d="M23.464,13.736a1.164,1.164,0,0,1,0,2.328H9.975l5,5a1.166,1.166,0,1,1-1.648,1.648L6.341,15.724a1.164,1.164,0,0,1,0-1.648L13.326,7.09a1.166,1.166,0,0,1,1.648,1.648l-5,5Z" transform="translate(-5.999 -6.749)" fill="#fff" fill-rule="evenodd"></path>
+      </svg>
+    </div>
+    <div class="view-content">
+      {{ rows }}
+    </div>
+    <div class="carousel-next">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18.629" height="16.302" viewBox="0 0 18.629 16.302">
+        <path id="arrow-left-circle" d="M7.163,13.736a1.164,1.164,0,0,0,0,2.328H20.651l-5,5A1.166,1.166,0,1,0,17.3,22.709l6.985-6.985a1.164,1.164,0,0,0,0-1.648L17.3,7.09a1.166,1.166,0,0,0-1.648,1.648l5,5Z" transform="translate(-5.999 -6.749)" fill="#fff" fill-rule="evenodd"></path>
+      </svg>
+    </div>
+  {% elseif empty %}
+    <div class="view-empty">
+      {{ empty }}
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+  {% if attachment_after %}
+    <div class="attachment attachment-after">
+      {{ attachment_after }}
+    </div>
+  {% endif %}
+  {% if more %}
+    {{ more }}
+  {% endif %}
+  {% if footer %}
+    <div class="view-footer">
+      {{ footer }}
+    </div>
+  {% endif %}
+  {% if feed_icons %}
+    <div class="feed-icons">
+      {{ feed_icons }}
+    </div>
+  {% endif %}
+</div>

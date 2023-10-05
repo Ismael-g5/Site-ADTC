@@ -1,0 +1,139 @@
+{#
+ESSE BLOCO É O FOOTER COM OS MENUS, LOGO E ETC PARA TODAS AS PÁGINAS
+#}
+
+  <!-- seção apenas no mobile start -->
+  {# <div class="d-block d-sm-none py-4" style="background-image: linear-gradient(rgb(12, 99, 170), rgb(12, 99, 170)); background-position: left top; background-size: 100%; background-repeat: repeat;"> #}
+<div class="py-4">
+  <div class="container">
+    <div class="row mx-auto">
+      <div class="bg-primary col-12 text-sm-left text-center p-3 pl-4 col-lg-9">
+        <h2 class="text-left text-white mb-0">Programa de Transferência de Renda</h2>
+        <h5 class="text-left text-white mb-0 py-2"><span style="font-weight: normal;">Transparência e Diálogo</span></h5>
+      </div>
+      <div class="text-center bg-primary d-flex flex-row justify-content-center align-items-center col-12 p-2 col-lg-3"><a class="btn btn-yellow py-2 text-dark" href="/form/duvid">Entre em contato</a></div>
+    </div>
+  </div>
+</div>
+  {# </div> #}
+  <div class="d-block d-sm-none py-4 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4" style="display: flex;align-items: center;flex-direction: column;">
+        {# <ul class="nav d-flex justify-content-end" style="text-decoration: none;"> #}
+        {% for item in items %}
+          {%
+            set item_classes = item.url.getOption('container_attributes').class | split(" ")
+          %}
+          {%
+            set item_classes = [
+              item.is_expanded and item.below ? 'expanded dropdown',
+              item.in_active_trail ? 'active active-trail',
+              loop.first ? 'first',
+              loop.last ? 'last',
+            ]
+          %}
+          <h5{{item.attributes.addClass(item_classes)}} style="text-decoration: none;">
+            {% set link_title = item.title %}
+            {% set link_attributes = item.link_attributes %}
+            {% if menu_level == 0 and item.is_expanded and item.below %}
+              {# {% set link_title %}{{ link_title }} <span class="caret"></span>{% endset %} #}
+              {% set link_attributes = link_attributes.addClass('dropdown-toggle').setAttribute('data-toggle', 'dropdown') %}
+            {% endif %}
+            {# Must use link() here so it triggers hook_link_alter(). #}
+            {{ link(link_title, item.url, link_attributes.addClass(item.in_active_trail ? 'active-trail')) }}
+            {% if item.below %}
+              {{ _self.menu_links(item.below, attributes.removeClass(classes), menu_level + 1, classes, dropdown_classes) }}
+            {% endif %}
+          <h5/>
+        {% endfor %}
+      {# </ul> #}
+        </div>
+        <div class="col-lg-4 d-flex flex-row justify-content-center pt-2"><img class="img-fluid d-block" src="{{ base_path ~ directory }}/images/logo-fgv.svg" width="200"></div>
+        <div class="col-lg-4">
+          <h6 class="text-text-color text-center mt-2">Copyright © FGV PTR</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- seção apenas no mobile end -->
+
+
+
+<div class="d-none d-sm-block py-3 border-top">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-lg-5" style=""><img class="d-block img-fluid" src="{{ base_path ~ directory }}/images/logo-fgv.png" width="180"></div>
+			<div class="col-md-6 col-lg-7" style="">
+				<ul class="nav d-flex justify-content-end">
+					{% for item in items %}
+						{%
+              set item_classes = item.url.getOption('container_attributes').class | split(" ")
+            %}
+						{%
+              set item_classes = [
+                item.is_expanded and item.below ? 'expanded dropdown',
+                item.in_active_trail ? 'active active-trail',
+                loop.first ? 'first',
+                loop.last ? 'last',
+              ]
+            %}
+						<li{{item.attributes.addClass(item_classes)}} style="text-decoration: none;">
+    {% set link_title = item.title %}
+    {% set link_attributes = item.link_attributes %}
+    {% if menu_level == 0 and item.is_expanded and item.below %}
+        {# {% set link_title %}{{ link_title }} <span class="caret"></span>{% endset %} #}
+        {% set link_attributes = link_attributes.addClass('dropdown-toggle').setAttribute('data-toggle', 'dropdown') %}
+    {% endif %}
+    {# Adicione o atributo 'target="_blank"' ao link_attributes #}
+    {% set link_attributes = link_attributes.setAttribute('target', '_blank') %}
+    {{ link(link_title, item.url, link_attributes.addClass(item.in_active_trail ? 'active active-trail')) }}
+    {% if item.below %}
+        {{ _self.menu_links(item.below, attributes.removeClass(classes), menu_level + 1, classes, dropdown_classes) }}
+    {% endif %}
+</li>
+					{% endfor %}
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="d-none d-sm-block py-3 border-top">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 text-center d-md-flex align-items-center justify-content-between" style="">
+				<p class="mb-0 py-1">Copyright © FGV PTR</p>
+			</div>
+				<div class="col-md-6 d-flex flex-row justify-content-end" style="">
+					<a class="btn btn-link text-muted" href="#" style="color:#0976b4" id="navbr5">Topo do site<i class="fa-solid fa-caret-up ml-2"></i>
+					</a>
+				</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="buscar-por">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-body">
+				<div class="input-group">
+					<input type="text" class="form-control input-text" placeholder="Buscar por" aria-label="Recipient's username" aria-describedby="basic-addon2">
+					<div class="input-group-append">
+						<button class="btn btn-outline-warning btn-lg" type="button">
+							<i class="bi bi-search text-dark"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" style=""></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" style=""></script>
+
+{# {% include '@fgv_theme/nuance.html.twig'%} #}
+

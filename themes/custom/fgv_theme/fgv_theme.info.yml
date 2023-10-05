@@ -1,0 +1,45 @@
+type: theme
+base theme: bootstrap
+core: 8.x
+core_version_requirement: ^9 || ^10
+
+name: 'ADTC'
+description: 'A Drupal Bootstrap 3 based sub-theme.'
+package: 'Bootstrap'
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  navigation_glossario: 'Header Glossário'
+  navigation_transparencia: 'Header Transparência'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  content_agenda: 'Content Agenda'
+  content_cursos_recente: 'Content Cursos Recente'
+  content_grafico: 'Content Gráfico'
+  content_organograma: 'Conteúdo Organograma'
+  content_share: 'Content Compartilhar'
+  content_pagamentos_efetuados: 'Content Pagamentos Efetuados'
+  content_beneficios_pagos: 'Content Benefícios Pagos'
+  content_bloco_3_home: 'Content Bloco 3 Home'
+  content_busca_agenda: 'Content Busca Agenda'
+  content_balanco_pagamentos: 'Content Balanco Pagamentos'
+  content_duvidas_frenquentes: 'Content Dúvidas Frequentes'
+  content_informacoes_duvidas: 'Content Informações Dúvidas'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+
+libraries-extend:
+  bootstrap/framework:
+    - fgv_theme/slick
+    - fgv_theme/scripts
+    - fgv_theme/carousel
+    - fgv_theme/framework
+
+libraries:
+  - 'fgv_theme/nuance-chatbot'

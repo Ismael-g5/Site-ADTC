@@ -1,0 +1,41 @@
+{#
+PÁGINA GOVERNAÇA
+#}
+
+{{page.navigation}}
+<style>
+p{
+  margin-bottom: 1rem !important;
+}
+body{
+  overflow-x: hidden !important;
+}
+
+</style>
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-white">Governança</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+{{page.content}}
+  <script>
+    // alinha equipe
+    $('.view-id-governanca > .view-content > .pt-4 > .views-col > .py-5.bg-dark > .container > .row > .col-md-12 > .row > div > .card.border-0.bg-dark.conteiner > ul').addClass('row')
+    $('.view-id-governanca > .view-content > .pt-4 > .views-col > .py-5.bg-dark > .container > .row > .col-md-12 > .row > div > .card.border-0.bg-dark.conteiner > ul > li').addClass('col-6 col-lg-3');
+
+    // mexe no tamanho das imagens da equipe
+    $('.view-id-governanca > .view-content > .pt-4 > .views-col > .py-5.bg-dark > .container > .row > .col-md-12 > .row > div > .card.border-0.bg-dark.conteiner > ul > li > div > #imagemEquipe > .field > .field__item > div > .field--name-field-media-image > .field__item > img').css('width', '5rem')
+    $('.view-id-governanca > .view-content > .pt-4 > .views-col > .py-5.bg-dark > .container > .row > .col-md-12 > .row > div > .card.border-0.bg-dark.conteiner > ul > li > div > #imagemEquipe > .field > .field__item > div > .field--name-field-media-image > .field__item > img').css('border-radius', '50%')
+
+    $('.view-id-governanca > .view-content > .pt-4 > .views-col > .py-5.bg-dark > .container > .row > .col-md-12 > .row > div > .card.border-0.bg-dark.conteiner > ul > li > div > #imagemEquipe > .field > .field__item > div > .field--name-field-media-image > .field__item > img').addClass('mb-3')
+    $('.view-id-governanca > .view-content > .col.pt-4').removeClass('col')
+    
+    // tira margem do nome da equipe
+    $('.card-body.d-flex.flex-column.justify-content-center > h5').addClass('mb-0')
+  </script>
+{{page.footer}}
+

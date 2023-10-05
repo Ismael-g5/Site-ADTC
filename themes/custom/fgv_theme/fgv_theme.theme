@@ -1,0 +1,293 @@
+<?php
+
+use Drupal\field\FieldConfigInterface;
+use Drupal\node\NodeInterface;
+use \Drupal\block\Entity\Block;
+use \Drupal\paragraphs\Entity\Paragraph;
+use \Drupal\Core\Form\FormStateInterface;
+use \Drupal\node\Entity\Node;
+use \Drupal\Core\Datetime\DrupalDateTime;
+use \Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * @file
+ * Bootstrap sub-theme.
+ *
+ * Place your custom PHP code in this file.
+ */
+function fgv_theme_preprocess(&$variables, $hook)
+{
+  $variables['base_path'] = base_path();
+}
+
+function fgv_theme_preprocess_node(&$variables)
+{
+  // Allowed view modes
+  $view_mode = $variables['view_mode']; // Retrieve view mode
+  $allowed_view_modes = ['full']; // Array of allowed view modes (for performance so as to not execute on unneeded nodes)
+
+  // If view mode is in allowed view modes list, pass to THEME_add_regions_to_node()
+  if (in_array($view_mode, $allowed_view_modes)) {
+    // Allowed regions (for performance so as to not execute for unneeded region)
+    $allowed_regions = ['sidebar_second', 'content_cursos_recente', 'content_share'];
+    fgv_theme_add_regions_to_node($allowed_regions, $variables);
+  }
+
+  if ($variables['node']->bundle() == 'transparency') {
+    $ptr_numeros_list = [];
+    $balanco_gastos_list = [];
+    $fundo_ptr_list = [];
+    $atendimento_list = [];
+    $cadastro_list = [];
+    $equipe_list = [];
+    $expectativa_duracao_list = [];
+    foreach ($variables['node']->field_image_title_subtitle_p->getValue() as $item) {
+      $entity = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item['target_id']);
+
+      $ptr_numeros_list[] = [
+        'image' => file_create_url($entity->field_image->entity->uri->value),
+        'title' => isset($entity->field_simple_text[0]) ? $entity->field_simple_text[0]->value : '',
+        'title_2' => isset($entity->field_simple_text_3[0]) ? $entity->field_simple_text_3[0]->value : '',
+        'subtitle' => isset($entity->field_simple_text_2[0]) ? $entity->field_simple_text_2[0]->value : '',
+        'subtitle_2' => isset($entity->field_simple_text_4[0]) ? $entity->field_simple_text_4[0]->value : '',
+        'icon' => isset($entity->field_icon->entity->uri->value) ? file_create_url($entity->field_icon->entity->uri->value) : '',
+        'icon_subtitle' => isset($entity->field_icon_subtitle->entity->uri->value) ? file_create_url($entity->field_icon_subtitle->entity->uri->value) : '',
+      ];
+    }
+    foreach ($variables['node']->field_title_subtitle_p->getValue() as $item) {
+      $entity = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item['target_id']);
+
+      $atendimento_list[] = [
+        'title' => $entity->field_simple_text->getValue()[0]['value'],
+        'subtitle' => $entity->field_simple_text_2->getValue()[0]['value']
+      ];
+    }
+    foreach ($variables['node']->field_balanco_de_pagamento->getValue() as $item) {
+      $entity = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item['target_id']);
+
+      $balanco_pagamentos_list[] = [
+        'image_fptr' => file_create_url($entity->field_image_fptr->entity->uri->value),
+        'title' => $entity->field_simple_text->getValue()[0]['value'],
+        'subtitle' => $entity->field_simple_text_2->getValue()[0]['value']
+      ];
+    }
+    foreach ($variables['node']->field_expectativa_duracao->getValue() as $item) {
+      $entity = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item['target_id']);
+
+      $expectativa_duracao_list[] = [
+        'image' => file_create_url($entity->field_image_expectativa->entity->uri->value),
+        'Ano_Inicial' => $entity->field_ano_inicial->getValue()[0]['value'],
+        'subtitle' => $entity->field_subtitulo_expectativa->getValue()[0]['value'],
+        'Ano_Final' => $entity->field_ano_final->getValue()[0]['value']
+      ];
+    }
+    foreach ($variables['node']->field_title_subtitle_p_2->getValue() as $item) {
+      $entity = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item['target_id']);
+
+      $fundo_ptr_list[] = [
+        'image_fptr' => file_create_url($entity->field_image_fptr->entity->uri->value),
+        'title' => $entity->field_simple_text->getValue()[0]['value'],
+        'subtitle' => $entity->field_simple_text_2->getValue()[0]['value']
+      ];
+    }
+    foreach ($variables['node']->field_cadastro->getValue() as $item) {
+      $entity = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item['target_id']);
+
+    $image_url = '';
+
+    if (!empty($entity->field_image_cadastro) && !empty($entity->field_image_cadastro->entity) && !empty($entity->field_image_cadastro->entity->uri->value)) {
+    $image_url = file_create_url($entity->field_image_cadastro->entity->uri->value);
+    }
+
+      $cadastro_list[] = [
+        'image' => $image_url,
+        'title' => $entity->field_title->getValue()[0]['value'],
+        'subtitle' => $entity->field_sub_title->getValue()[0]['value']
+      ];
+    }
+    foreach ($variables['node']->field_descricao_equipe->getValue() as $item) {
+      $entity = \Drupal::entityTypeManager()->getStorage('paragraph')->load($item['target_id']);
+
+      $image_url = '';
+
+    if (!empty($entity->field_image_equipe) && !empty($entity->field_image_equipe->entity) && !empty($entity->field_image_equipe->entity->uri->value)) {
+    $image_url = file_create_url($entity->field_image_equipe->entity->uri->value);
+    }
+
+
+      $equipe_list[] = [
+        'image' => $image_url,
+        'title' => $entity->field_title_equipe->getValue()[0]['value'],
+        'subtitle' => $entity->field_sub_titulo_equipe->getValue()[0]['value']
+      ];
+    }
+
+    $variables['ptr_numeros_list'] = $ptr_numeros_list;
+    $variables['balanco_pagamentos_list'] = $balanco_pagamentos_list;
+    $variables['fundo_ptr_list'] = $fundo_ptr_list;
+    $variables['atendimento_list'] = $atendimento_list;
+    $variables['cadastro_list'] = $cadastro_list;
+    $variables['equipe_list']   = $equipe_list;
+    $variables['expectativa_duracao_list']   = $expectativa_duracao_list;
+
+  }
+}
+
+/**
+ * THEME_add_regions_to_node
+ */
+
+function fgv_theme_add_regions_to_node($allowed_regions, &$variables)
+{
+  // Retrieve active theme
+  $theme = \Drupal::theme()->getActiveTheme()->getName();
+
+  // Retrieve theme regions
+  $available_regions = system_region_list($theme, 'REGIONS_ALL');
+
+  // Validate allowed regions with available regions
+  $regions = array_intersect(array_keys($available_regions), $allowed_regions);
+
+  // For each region
+  foreach ($regions as $key => $region) {
+
+    // Load region blocks
+    $blocks = \Drupal::entityTypeManager()
+      ->getStorage('block')
+      ->loadByProperties(array('theme' => $theme, 'region' => $region));
+
+    // Sort ‘em
+    uasort($blocks, 'Drupal\block\Entity\Block::sort');
+
+    // Capture viewable blocks and their settings to $build
+    $build = array();
+    foreach ($blocks as $key => $block) {
+      if ($block->access('view')) {
+        $block = Block::load($key);
+        $block_content = \Drupal::entityTypeManager()
+          ->getViewBuilder('block')
+          ->view($block);
+        $build[$key] = $block_content;
+      }
+    }
+
+    // Add build to region
+    $variables[$region] = $build;
+  }
+}
+
+ /**
+ * Implements hook_theme_suggestions_HOOK().
+ */
+function views_theme_suggestions_views_view(array $variables) {
+    $suggestions = [];
+    $view = $variables['view'];
+
+    $suggestions[] = 'views_view__' . $view->id();
+    $suggestions[] = 'views_view__' . $view->current_display;
+    $suggestions[] = 'views_view__' . $view->id() . '__' . $view->current_display;
+
+    return $suggestions;
+  }
+
+function fgv_theme_preprocess_paragraph($variables){
+
+  // if(isset ($varibles['field_name']) && $variables['field_name'] == 'field_evento_bloco'){
+  //   $paragraph = $variables['items'][0]['content']['#paragraph'];
+  //   $variables['fgv_theme'] = [
+  //     'cidade_evento' => $paragraph->get('field_cidade')->getValue(),
+  //   ];
+  // }
+
+  $content = $variables['content'];
+  $key = array_keys($content);
+  if (!isset($key[0])) return;
+  $bundle = isset($content[$key[0]]['#bundle']) ? $content[$key[0]]['#bundle'] : FALSE;
+
+  if ($bundle == 'field_evento_bloco') {
+    $values = [
+      'cidade_evento' => $content['field_cidade']['#items']->getValue()[0]['value'],
+    ];
+
+    $variables['fgv_theme'] = $values;
+
+}
+}
+
+
+function fgv_theme_form_system_theme_settings_alter(&$form, Drupal\Core\Form\FormStateInterface $form_state) {
+  // POPUP
+  $form['fgv_popup'] = array(
+    '#type'         => 'details',
+    '#title'        => t('POPUP'),
+    '#weight'       => -1003,
+    '#open'         => FALSE,
+ );
+
+ $form['fgv_popup']['imagem_popup'] = array(
+  '#type'           => 'textfield',
+  '#title'          => t('URL Imagem'),
+  '#default_value'  => theme_get_setting('imagem_popup'),
+);
+}
+
+function fgv_theme_preprocess_page(&$variables){
+  $variables['imagem_popup'] = theme_get_setting('imagem_popup');
+
+  // Remove block from all content that isn't a specific view.
+  $view_id = Drupal::request()->attributes->get('view_id');
+
+  if (empty($view_id) || $view_id == 'glossario') {
+    if (isset($variables['page']['content']['views_block__glossario_block_2'])) {
+      $urlParam = \Drupal::request()->query->get('title');
+      if ($urlParam) {
+        unset($variables['page']['content']['views_block__glossario_block_2']);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function fgv_theme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node instanceof \Drupal\node\NodeInterface) {
+    $suggestions[] = 'page__' . $node->bundle();
+  }
+}
+
+// function fgv_theme_preprocess_page(&$variables) {
+//   // Define {{ field_image }} field value available in the template.
+//   if (isset($variables['node'])) {
+//     $variables['page']['image_in_page'] = $variables['node']->field_image->view();
+//   }
+// }
+
+function fgv_theme_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  if ($hook == 'form' & !empty($variables['element']['#id'])) {
+    if ($route_name == 'view.clipping.page_1') {
+      $suggestions[] = 'form__' . str_replace('-', '_', $variables['element']['#id']);
+    }
+  }
+}
+
+function fgv_theme_form_views_exposed_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if ($form['#id'] == 'views-exposed-form-clipping-page-1') {
+    $form['actions']['submit']['#attributes'] = array('class' => array('btn-warning', 'px-3'));
+  }
+}
+
+function fgv_theme_preprocess_views_view_unformatted(&$variables) {
+  if ($variables['view']->element['#name'] == 'glossario' && $variables['view']->current_display == 'page_2') {
+    foreach ($variables['rows'] as $item) {
+      if (isset($item['content']['#row'])) {
+        $term = Term::load($item['content']['#row']->_entity->field_glossary_catetory_t->getValue()[0]['target_id']);
+        $variables['group'] = $term->getName();
+      }
+    }
+  }
+}

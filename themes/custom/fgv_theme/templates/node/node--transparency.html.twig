@@ -1,0 +1,670 @@
+{{ attach_library('bootstrap_barrio/node') }}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+  <header>
+    {{ title_prefix }}
+    {% if label and not page %}
+      <h2{{ title_attributes.addClass('node__title') }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+    {% endif %}
+    {{ title_suffix }}
+    {% if display_submitted %}
+      <div class="node__meta">
+        {{ author_picture }}
+        {% block submitted %}
+          <em{{ author_attributes }}>
+            {% trans %}Submitted by {{ author_name }} on {{ date }}{% endtrans %}
+          </em>
+        {% endblock %}
+        {{ metadata }}
+      </div>
+    {% endif %}
+  </header>
+  <div{{ content_attributes.addClass('node__content', 'clearfix') }}>
+
+      <div class="row row-1 mt-5">
+        <div id="ptrnumeros-2" style="height: 50px;"></div>
+        <div class="col-12">
+          <h2 class="text-dark text-center">{{ content.field_simple_text }}</h2>
+        </div>
+      </div>
+
+      <div id="scroll-mode" data-status="on"></div>
+<!-- ptr em numeros -->
+<div id="ptrnumeros" class="ptr-stats-section">
+  {% for item in ptr_numeros_list %}
+    <div class="content_ptr">
+      <div class="highlight-block">
+        <div class="image">
+          <img class="img-highlight img-fluid size-effect" src="{{ item.image }}">
+        </div>
+      </div>
+      <div class="highlight-numbers">
+        <div class="numbers-content">
+          <div class="wrapper d-flex align-items-center">
+            <div class="image">
+              <img class="card-icon" style="" src="{{ item.icon }}">
+            </div>
+            <div class="text-content">
+              <div class="title">{{ item.title }}</div>
+              <div class="subtitle" style="">{{ item.subtitle }}</div>
+            </div>
+          </div>
+          <div class="wrapper d-flex align-items-center">
+            <div class="image">
+              <img class="card-icon" style="" src="{{ item.icon_subtitle }}">
+            </div>
+            <div class="text-content">
+              <div class="title">{{ item.title_2 }}</div>
+              <div class="subtitle" style="">{{ item.subtitle_2 }}</div>
+            </div>
+          </div>
+          <div class="square one"></div>
+          <div class="square two"></div>
+          <div class="square three"></div>
+          <div class="square four"></div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+<!-- end ptr em numeros -->
+
+<!-- Balanço de Pagamentos-->
+<div id="balanco" class="fund-ptr-section">
+  <div class="container">
+    {% if balanco_pagamentos_list is not empty %}
+    <div class="text-dark ">
+      <div class="container fund-ptr-main">
+        <div class="row row-3">
+          <div class="col-lg-12">
+            <h2 class="text-dark text-center" id="proximas-paradas">
+              <span class="balanco">Balanço de Pagamentos</span>
+            </h2>
+          </div>
+        </div>
+        <div class="row row-4 pb-2 pt-4 mx-auto">
+          {% for item in balanco_pagamentos_list %}
+            <div class="col-lg-4 col-md-6 col-12 mb-4">
+              <div class="px-0">
+                <div class="row">
+                  <div class="col-12 text-center ptr-stats">
+                    {% if item.image_fptr is not null %}
+                      <img class="img" src="{{ item.image_fptr }}" style="max-width: 100%; height: auto;">
+                    {% endif %}
+                    <h3>{{ item.title }}</h3>
+                    <h6>
+                      <span style="font-weight: normal;">{{ item.subtitle }}</span>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if loop.index % 3 == 0 %}
+              </div><div class="row row-4 pb-2 pt-4 mx-auto">
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="bar-animations">
+          <div class="box line-one"></div>
+          <div class="box line-two"></div>
+          <div class="box line-three"></div>
+          <div class="box line-four"></div>
+          <div class="box line-five"></div>
+          <div class="box big-box"></div>
+          <div class="box large-box"></div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+<!-- end Balaço de Pagamentos -->
+
+
+<!-- fundo ptr -->
+<div class="container block-fundo-ptr" id="fundoptr">
+      {% if fundo_ptr_list is not empty %}
+        <div class="text-dark" style="margin-top:-100px;">
+          <div class="container">
+            <div class="row row-3">
+              <div class="col-lg-12">
+                <h2 class="text-dark text-center"><span>Fundo PTR</span></h2>
+              </div>
+            </div>
+            <div class="list-numbers row row-4 pb-2 pt-4 d-flex justify-content-center mx-auto">
+              {% for item in fundo_ptr_list %}
+
+               <div class="fund-ptr-stats-card col-lg-4 col-md-6 col-12 px-0 mb-4">
+                <div class="items row">
+                {% if item.image_fptr is not null %}
+                  <div class="icon col-4">
+                     <img class="img" src="{{ item.image_fptr }}" style="max-width: 100%; height: auto;">
+                 </div>
+                {% endif %}
+                    <div class="value col-8">
+                       <h3>{{ item.title }}</h3>
+                       <h6><span style="font-weight: normal;">{{ item.subtitle }}</span></h6>
+                    </div>
+                      </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+</div>
+
+<!--Expectativa de duração -->
+{% if expectativa_duracao_list is not empty %}
+<div class="text-dark fund-ptr-stock" style="margin-top:-100px;">
+    <div class="container">
+        <div class="row row-4 pb-2 pt-4 d-flex justify-content-center mx-auto fund-section-bottom">
+            {% for item in expectativa_duracao_list %}
+            <div class=" col-12 px-0 mb-4">
+                <div class="d-flex flex-column align-items-center" style="height: 100%;">
+                  <p>
+                    <span style="margin-right: 10px;">{{ item.Ano_Inicial }}</span>
+                      <img class="img" src="{{ item.image }}" >
+                    <span style="margin-left: 10px;">{{ item.Ano_Final }}</span>
+                  </p>
+                  <p class="subtitle">{{item.subtitle}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+</div>
+
+
+<!--painel indicadores -->
+<div class="container" id='painelindicadores'>
+      <div class="wrap-painelptr row row-1 mt-4">
+        <div class="col-md-8 col-12">
+          <div class="image">
+            {% set image = file_url(node.field_image.entity.uri.value) %}
+            <img src="{{ image }}" class="img-fluid w-100" />
+          </div>
+        </div>
+        <div class="col-md-4 col-12">
+          <div class="wrap-title">
+            <h2 class="title" style="color:#002d4d">{{ label }}</h2>
+          </div>
+
+<!-- wrap link -->
+        <div class="wrap-body" style="color:#002d4d">{{ content.body }}</div>
+          <div class="wrap-link flex-row">
+            <a href="{{ node.field_link.get(0).getUrl().toString() }}" target="_blank" class="btn btn-action">{{ content.field_link['#items'].getValue()[0]['title'] }}</a>
+          </div>
+        </div>
+<!-- end wrap link -->
+
+      </div>
+</div>
+<!--poligonais -->
+    <div class="container" id="poligonais">
+      <div class="row row-5">
+        <div class="col-12">
+          <h2 class="text-dark text-center" style="margin-top:100px;"><span>Poligonais</span></h2>
+            <br>
+            <div class="descricao-poligonais">
+              <span id="poligonais-texto" style="margin-top:30px !important;">{{content.field_texto_poligonais}}</span>
+
+              <!-- seta vermelha -->
+             {% set indicador = file_url(node.field_indicacao_poligonais.entity.uri.value) %}
+              <img class="seta" src="{{indicador}}">
+
+            </div>
+            <br>
+          {{ content.field_simple_long_text['#items'].getValue()[0]['value']|raw }}
+
+        </div>
+      </div>
+<!--end-->
+
+<!--cadastro -->
+<div class="container" id="cadastro">
+      {% if cadastro_list is not empty %}
+        <div class="row row-11">
+          <div class="col-lg-12">
+            <h2 class="text-dark text-center" style="margin-top:100px;"><span>Cadastro</span></h2>
+          </div>
+        </div>
+
+        <div class="row row-12 text-center mx-auto pt-4 desktop-only">
+          {% for item in cadastro_list %}
+            {% if loop.index >= 1 and loop.index <= 2 %}
+              <div class="col-lg-3 col-6 px-0">
+                <div class="card border-0" style="min-height:220px;">
+                  <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h2 class="text-dark">{{ item.title }}</h2>
+                        <p class="text-dark">{{ item.subtitle }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-6 px-0">
+                <div class="card" style="background-image:url({{ item.image }});background-position:center;background-size:cover;background-repeat:no-repeat;min-height:220px;"></div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <div class="row row-13 text-center mx-auto pt-4 mobile-only">
+          {% for item in cadastro_list %}
+            {% if loop.index >= 1 and loop.index <= 2 %}
+              <div class="col-6 {{ (loop.index == 2) ? 'order-2 order-lg-1' : '' }} px-0">
+                <div class="card border-0" style="min-height:220px;">
+                  <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h2 class="text-dark">{{ item.title }}</h2>
+                        <p class="text-dark">{{ item.subtitle }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-6 px-0">
+                <div class="card" style="background-image:url({{ item.image }});background-position:center;background-size:cover;background-repeat:no-repeat;min-height:220px;"></div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      <div class="row row-14 text-center mx-auto desktop-only">
+        {% if cadastro_list is not empty %}
+          {% for item in cadastro_list %}
+            {% if loop.index >= 3 and loop.index <= 4 %}
+              <div class="col-lg-3 col-6 px-0 {{ (loop.index % 2) ? 'order-2 order-md-1' : 'order-1 order-md-2' }}">
+                <div class="card" style="background-image:url({{ item.image }});background-position: center;	background-size: cover;	background-repeat: no-repeat;	min-height: 220px;"></div>
+              </div>
+              <div class="col-lg-3 col-6 px-0 {{ (loop.index % 2) ? 'order-md-1' : 'order-md-2' }} ">
+                <div class="card border-0" style="min-height: 220px;">
+                  <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h2 class="text-dark">{{ item.title }}</h2>
+                        <p class="text-dark">{{ item.subtitle }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="row row-14 text-center mx-auto mobile-only">
+        {% if cadastro_list is not empty %}
+          {% for item in cadastro_list %}
+            {% if loop.index >= 3 and loop.index <= 4 %}
+              <div class="col-lg-3 col-6 px-0 {{ (loop.index % 2) ? 'order-2 order-md-1' : 'order-1 order-md-2' }} diego">
+                <div class="card" style="background-image:url({{ item.image }});background-position: center;	background-size: cover;	background-repeat: no-repeat;	min-height: 220px;"></div>
+              </div>
+              <div class="col-lg-3 col-6 px-0 {{ (loop.index % 2) ? 'order-1 order-md-2' : 'order-2 order-md-1' }}">
+                <div class="card border-0" style="min-height: 220px;">
+                  <div class="card-body d-flex align-items-center justify-content-center">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h2 class="text-dark">{{ item.title }}</h2>
+                        <p class="text-dark">{{ item.subtitle }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+<!-- cadastro end -->
+
+<!-- atendimentos -->
+  <div class="row row-6" id="atendimentos">
+    <div class="col-lg-12">
+      <h2 class="text-dark text-center" style="margin-top:100px;"><span>Atendimento</span></h2>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+      <div class="row row-7 text-left pt-4">
+        {% if atendimento_list is not empty %}
+          {% for item in atendimento_list %}
+            {% if loop.index <= 3 %}
+              <div class="col-lg-4 {{ (loop.index == 3) ? 'col-12' : 'col-6' }} p-2">
+                <div class="card">
+                  <div class="card-body flex-column align-items-start justify-content-end d-flex {{ (loop.index == 3) ? 'bg-secondary' : 'bg-light' }}" style="	min-height: 196px;">
+                    <h2 class="text-dark">{{ item.title }}</h2>
+                    <p class="text-dark">{{ item.subtitle }}</p>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+
+      <div class="row row-8 text-left">
+        <div class="p-2 col-lg-8">
+          {% if content.field_images['#items'][0].entity.uri.value is not empty %}
+            {% set image_1 = file_url(content.field_images['#items'][0].entity.uri.value) %}
+            <div class="card" style="background-image:url({{ image_1 }});background-position:center;background-size:cover;background-repeat:no-repeat;height:300px;"></div>
+          {% endif %}
+        </div>
+        <div class="p-2 col-12 col-lg-4">
+          <div class="card">
+            <div class="card-body flex-column align-items-start justify-content-end d-flex bg-light desktop-only" style="height: 300px;">
+              <div class="row">
+                <div class="col-lg-12">
+                  {% for item in atendimento_list %}
+                    {% if loop.index == 4 %}
+                      <div class="item item-{{ loop.index }}">
+                        <h2 class="text-dark pr-2">{{ item.title }}</h2>
+                        <p class="text-dark">{{ item.subtitle }}</p>
+                      </div>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body flex-column align-items-start justify-content-end d-flex bg-light mobile-only" style="height: 204px;">
+              <div class="row">
+                <div class="col-lg-12">
+                  {% for item in atendimento_list %}
+                    {% if loop.index == 4 %}
+                      <h2 class="text-dark pr-2">{{ item.title }}</h2>
+                      <p class="text-dark">{{ item.subtitle }}</p>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-9 text-left">
+        {% if atendimento_list is not empty %}
+          {% for item in atendimento_list %}
+            {% if loop.index >= 5 and loop.index <= 6 %}
+              <div class="col-lg-4 p-2 order-3 order-md-2 col-6">
+                <div class="card mb-2" style="min-height:196px;">
+                  <div class="card-body d-flex justify-content-center align-items-center {{ (loop.index == 6) ? 'bg-yellow' : 'bg-light' }} text-dark" style="">
+                    <div class="row text-left">
+                      <div class="px-0 col-lg-7 d-flex justify-content-center">
+                        <h2>{{ item.title }}</h2>
+                      </div>
+                      <div class="col-lg-5 d-flex justify-content-center">
+                        <p>{{ item.subtitle }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+        <div class="col-lg-4 col-12 p-2 order-1  order-md-3">
+          {% if content.field_images['#items'][1].entity.uri.value is not null %}
+            {% set image_2 = file_url(content.field_images['#items'][1].entity.uri.value) %}
+            <div class="card" style="background-image:url({{ image_2 }});background-position:center;background-size:cover;background-repeat:no-repeat;min-height:196px;"></div>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="row row-10 text-left">
+        <div class="col-lg-4 p-2 col-12">
+          {% if content.field_images['#items'][2].entity.uri.value is not null %}
+            {% set image_3 = file_url(content.field_images['#items'][2].entity.uri.value) %}
+            <div class="card" style="background-image:url({{ image_3 }});background-position:center;background-size:cover;background-repeat:no-repeat;min-height:400px;"></div>
+          {% endif %}
+        </div>
+        <div class="col-lg-4 p-2 col-6">
+          {% if atendimento_list is not empty %}
+            {% for item in atendimento_list %}
+              {% if loop.index >= 7 and loop.index <= 8 %}
+                <div class="card mb-2" style="min-height:196px;">
+                  <div class="card-body d-flex justify-content-center align-items-center {{ (loop.index == 8) ? 'bg-aqua' : 'bg-light' }} text-dark">
+                    <div class="row text-left">
+                      <div class="col-lg-6 px-0 d-flex justify-content-center">
+                        <h2>{{ item.title }}</h2>
+                      </div>
+                      <div class="col-lg-6 d-flex justify-content-center px-0">
+                        <p style="font-size: 1rem !important">{{ item.subtitle }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+
+        <div class="col-lg-4 p-2 col-6">
+          {% if atendimento_list is not empty %}
+            {% for item in atendimento_list %}
+              {% if loop.index >= 9 and loop.index <= 10 %}
+                <div class="card {{ (loop.index == 9) ? 'bg-purple' : 'bg-light' }} mb-2 text-light" style="min-height:196px;">
+                  <div class="card-body d-flex justify-content-center align-items-center">
+                    <div class="row">
+                      <div class="text-center col-lg-12" style="color:#4D4E56 !important;">
+                        <div class="item item-{{ loop.index }}">
+                          <h2 class="mb-0">{{ item.title }}</h2>
+                          <p style="font-size: 1rem !important">{{ item.subtitle }}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endif %}
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      </div>
+<!-- end atendimentos -->
+
+
+<!-- equipe -->
+      <div class="row row-15">
+        <div class="col-md-12 text-left mt-2">
+          <h2 class="text-dark text-center" id="equipe" style="margin-top:100px;"><span>Equipe</span></h2>
+        </div>
+      </div>
+
+      <div class="row row-16 text-left border-bottom d-flex flex-row justify-content-center align-items-center mx-auto text-dark pt-3">
+        <div class="col-lg-6 d-flex flex-row align-items-center justify-content-start p-2 py-4">
+          <h1 class="display-1" id="proximas-paradas" style="font-weight: 700;">{{ content.field_simple_text_2['#items'].getValue()[0]['value'] }}</h1>
+          <h6 class="mb-0 text-left pl-2"><span style="font-weight: normal;">{{ content.field_simple_text_3['#items'].getValue()[0]['value'] }}</span></h6>
+        </div>
+        <div class="col-lg-6 p-2">
+          {% set image_4 = file_url(content.field_image_2['#items'][0].entity.uri.value) %}
+          <div class="card" style="background-image:url({{ image_4 }});	background-position: center;	background-size: cover;	background-repeat: no-repeat;	min-height: 220px;"></div>
+        </div>
+      </div>
+
+      <div class="row row-17 text-center mx-auto">
+        <div class="col-lg-12 p-2 text-dark">
+          {% if equipe_list is not empty %}
+            {% for item in equipe_list %}
+              <div class="col-lg-6 d-flex flex-row align-items-center justify-content-start py-4 px-0">
+                <img class="d-block" src="{{ item.image }}" height="80px">
+                <h1 id="proximas-paradas" class="px-1">{{ item.title }}</h1>
+                <h6 class="mb-0 text-left"><span style="font-weight: normal;">{{ item.subtitle }}</span></h6>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+    </div>
+  <!-- equipe end -->
+</article>
+<style>
+  .field__label{
+    display: none !important;
+  }
+
+  .descricao-poligonais{
+    background-color: #EEEEEE;
+    font-family: "Inter", sans-serif !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #4d4e56 !important;
+    align-itens: center !important;
+    justify-content: center;
+    display: flex;
+    margin-top: -20px !important;
+
+
+  }
+
+  .ptr-stats img.img {
+    margin-bottom: 17px;
+  }
+
+  .fund-ptr-stats-card {
+      color: #737373;
+  }
+
+  .fund-ptr-stats-card h3 {
+      margin: 0px;
+      font-size: 32px;
+      white-space: nowrap;
+  }
+
+  .fund-ptr-stats-card h6 span {
+      font-weight: bold !important;
+      font-size: 12px;
+  }
+
+  .fund-section-bottom {
+    margin-top: 34px;
+    color: #737373;
+    font-weight: 900;
+  }
+
+  .fund-section-bottom p.subtitle {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+
+  .fund-ptr-main .ptr-stats {
+      color: #4D4E56;
+  }
+
+  .fund-ptr-main .ptr-stats h3 {
+      font-size: 48px;
+      margin: 0px;
+  }
+
+  .fund-ptr-main .ptr-stats h6 {
+      font-size: 21px;
+  }
+
+  #fund-ptr-section {
+      position: relative;
+  }
+
+  #fund-ptr-section span#fundoptr {
+      color: #002d4d;
+  }
+
+  .descricao-poligonais{
+    padding: 0px 30px 30px 30px;
+  }
+
+  span#poligonais-texto .field__item img:first-child {
+    margin: 0px 10px;
+  }
+
+
+</style>
+
+<!--<script> para manipular icone da janela no texto de poligonais
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get the parent div by ID
+    const parentDiv = document.getElementById('poligonais-texto');
+
+    // Get all the images inside the child with class 'field-item' of the parent div
+    const images = parentDiv.querySelector('.field__item').querySelectorAll('img');
+
+    // Get the last image
+    const lastImage = images[images.length - 1];
+
+    if (lastImage) {
+      // Create a new div to wrap the image and set its style
+      const imageWrapper = document.createElement('div');
+      imageWrapper.style.position = 'absolute';
+      imageWrapper.style.right = '50px';
+      imageWrapper.style.bottom = '-15px';
+      imageWrapper.appendChild(lastImage.cloneNode());
+
+      // Move the new div with the image to the bottom-left corner of 'poligonais-texto'
+      parentDiv.style.position = 'relative'; // Make sure the parent is relative
+      parentDiv.appendChild(imageWrapper);
+      lastImage.style.display = 'none'
+
+    }
+  });
+
+</script>
+
+
+<script>
+  // Função para verificar se é uma versão móvel
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // Controla a exibição da versão móvel ou desktop
+  function updateLayout() {
+    if (isMobile()) {
+      // Exibe a versão móvel
+      document.querySelectorAll('.card mb-2').forEach(column => {
+        column.style.marginTop = '-10px;'; // Volta ao valor padrão
+      });
+       document.querySelectorAll('.subtitle_1').forEach(title => {
+        title.style.fontSize = '15px;'; // Volta ao valor padrão
+      });
+    } else {
+      // Exibe a versão desktop
+      document.querySelectorAll('.data-relatorio').forEach(img => {
+        img.style.marginTop = '15px';
+      });
+      document.querySelectorAll('.titulo-relatorio ').forEach(title => {
+        title.style.fontSize = ''; // Volta ao valor padrão
+      });
+    }
+  }
+
+  // Atualiza o layout ao carregar a página e ao redimensionar a janela
+  window.addEventListener('load', updateLayout);
+  window.addEventListener('resize', updateLayout);
+</script>

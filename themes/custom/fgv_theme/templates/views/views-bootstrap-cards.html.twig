@@ -1,0 +1,112 @@
+{#
+/**
+ * @file views-bootstrap-cards.html.twig
+ * Default simple view template to display Bootstrap Cards.
+ *
+ *
+ * - rows: Contains a nested array of rows. Each row contains an array of
+ *   columns.
+ *
+ * @ingroup views_templates
+ */
+#}
+
+<div class="d-block d-sm-nonept-3">
+  {% for key, row in rows -%}
+  {# <div class="card">
+    {% if row.image %}
+        {{ row.image }}
+    {% endif %}
+    {% if row.title %}
+      <div class="card-header">{{ row.title }}</div>
+    {% endif %}
+    {% if row.content %}
+      <div class="card-body">
+        {{ row.content }}
+      </div>
+    {% endif %}
+  </div> #}
+  {% if loop.first %}
+  <div class="col-12 col-lg-6 mt-2" style="">
+      <div class="card noticiaDestaque" style="">
+        {{ row.image }}
+        <div class="card-body">
+          <h6 class="mb-0 my-2 text-dark">
+            <i class="fa-lg mr-2 text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+              <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+              <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+              </svg>
+            </i>
+            <span style="font-weight: normal;text-transform: uppercase;">{{ row.title }}</span>
+          </h6>
+          <h5 class="text-dark">{{row.content}}</h5>
+        </div>
+      </div>
+    </div>
+  {% else %}
+  <div class="d-flex flex-column justify-content-between align-items-stretch col-lg-6" style="min-height: 189px !important;">
+      <div class="card mt-2">
+        <div class="card-body" style="min-height: 165px !important;">
+          <div class="row">
+            <div class="col-md-12 px-0 col-12">
+            <div class="row mx-1">
+            <div class="col-8 col-lg-9 col-md-9" style="">
+              <h6 class="mb-0 my-2 text-dark">
+              <i class="fa-lg mr-2 text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3" viewBox="0 0 16 16">
+                <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+                <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+                </svg>
+              </i>
+              <span style="font-weight: normal;text-transform: uppercase;">{{row.title}}</span></h6>
+              <h5 class="text-dark">{{row.content}}</h5>
+            </div>
+            <div class="px-0 col-4 col-lg-3 col-md-3">{{row.image}}</div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  {%- endfor %}
+</div>
+
+
+{# <div class="d-block d-sm-nonept-3 py-4">
+<div class="container">
+<div class="row">
+    <div class="col-12 col-lg-6 mt-2" style="">
+      <div class="card">
+        {{ fields.field_image.content }}
+        <div class="card-body">
+          <h6 class="mb-0 my-2 text-dark">
+            <i class="fa-regular fa-calendar-days fa-lg mr-2 text-primary"></i>
+            <span style="font-weight: normal;">{{ fields.created.content }}</span>
+          </h6>
+          <h5 class="text-dark">{{fields.title.content}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-column justify-content-between align-items-stretch col-lg-6">
+      <div class="card mt-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12 px-0 col-12">
+            <div class="row mx-1">
+            <div class="col-8 col-lg-9 col-md-9" style="">
+              <h6 class="mb-0 my-2 text-dark"><i class="fa-regular fa-calendar-days fa-lg mr-2 text-primary"></i><span style="font-weight: normal;">{{fields.created.content}}</span></h6>
+              <h5 class="text-dark">{{fields.title.content}}</h5>
+            </div>
+            <div class="px-0 col-4 col-lg-3 col-md-3">{{fields.field_image.content}}</div>
+          </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div> #}
+

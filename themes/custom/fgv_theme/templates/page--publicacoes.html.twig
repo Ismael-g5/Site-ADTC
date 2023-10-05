@@ -1,0 +1,83 @@
+{#
+PÁGINA PUBLICAÇÕES
+#}
+
+
+{{page.navigation}}
+<style>
+.view-header{
+  display: flex !important;
+  justify-content: center !important;
+  font-style: italic !important;
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+</style>
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="text-white">Publicações</h1>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="d-block d-sm-nonept-3 py-4 bg-light">
+<div class="container">
+<form class="views-exposed-form" data-drupal-selector="views-exposed-form-publicacoes-page-1" action="{{ base_path }}publicacoes" method="get" id="views-exposed-form-publicacoes-page-1" accept-charset="UTF-8">
+<div class="row mx-0 py-3 px-3 bg-white">
+    <div class="col-md-12">
+      <div class="row" style="width: 100%; display:flex;justify-content:space-between;">
+        <div class="col-md-4 my-2">
+          <div class="form-group"><label style="font-weight: 400;">Pesquisar</label>
+            <div class="form-group">
+              <input type="text" data-drupal-selector="edit-keys" id="edit-keys" class="form-control py-3" placeholder="Palavra-chave" name="keys">
+            </div>
+          </div>
+        </div>
+          <div class="col-md-4 my-2">
+            <div class="form-group"><label style="font-weight: 400;">Tipo de publicação</label>
+              <div class="select-wrapper">
+              <select data-drupal-selector="edit-tid" class="form-select form-control select" id="edit-tid" name="tid" style="height: 3rem;"></select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 my-2 col-lg-3 d-flex flex-row justify-content-center align-items-center" style="align-items: end !important;">
+          <button data-drupal-selector="edit-submit-publicacoes" class="btn btn-yellow text-dark mt-2 px-5 py-2" type="submit" id="edit-submit-publicacoes">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+</div>
+    {# <div class="container"> #}
+
+<div class="bg-light">
+	<div class="container">
+		{{page.content}}
+	</div>
+</div>
+<script>
+// muda texto do select
+setTimeout(function() {
+  $('.select-wrapper > .form-select.form-control').find('option').each(function() {
+    if($(this).val() == "All"){
+      $('.select-wrapper > .form-select.form-control.select').append('<option value="'+$(this).val()+'" selected="selected">Selecione uma opção</option>')
+      return
+    }
+    $('.select-wrapper > .form-select.form-control.select').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).html()+'</option>')
+  });
+  $('.select-wrapper > .form-select.form-control.select').val("All").change();
+}, 500)
+
+// alinha os cards no mobile
+$('.field.field--name-field-arquivo-publicacao.field--type-file.field--label-visually_hidden > .field__item > a').prepend('<svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-pdf" viewBox="0 0 16 16"><path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z"/><path d="M4.603 14.087a.81.81 0 0 1-.438-.42c-.195-.388-.13-.776.08-1.102.198-.307.526-.568.897-.787a7.68 7.68 0 0 1 1.482-.645 19.697 19.697 0 0 0 1.062-2.227 7.269 7.269 0 0 1-.43-1.295c-.086-.4-.119-.796-.046-1.136.075-.354.274-.672.65-.823.192-.077.4-.12.602-.077a.7.7 0 0 1 .477.365c.088.164.12.356.127.538.007.188-.012.396-.047.614-.084.51-.27 1.134-.52 1.794a10.954 10.954 0 0 0 .98 1.686 5.753 5.753 0 0 1 1.334.05c.364.066.734.195.96.465.12.144.193.32.2.518.007.192-.047.382-.138.563a1.04 1.04 0 0 1-.354.416.856.856 0 0 1-.51.138c-.331-.014-.654-.196-.933-.417a5.712 5.712 0 0 1-.911-.95 11.651 11.651 0 0 0-1.997.406 11.307 11.307 0 0 1-1.02 1.51c-.292.35-.609.656-.927.787a.793.793 0 0 1-.58.029zm1.379-1.901c-.166.076-.32.156-.459.238-.328.194-.541.383-.647.547-.094.145-.096.25-.04.361.01.022.02.036.026.044a.266.266 0 0 0 .035-.012c.137-.056.355-.235.635-.572a8.18 8.18 0 0 0 .45-.606zm1.64-1.33a12.71 12.71 0 0 1 1.01-.193 11.744 11.744 0 0 1-.51-.858 20.801 20.801 0 0 1-.5 1.05zm2.446.45c.15.163.296.3.435.41.24.19.407.253.498.256a.107.107 0 0 0 .07-.015.307.307 0 0 0 .094-.125.436.436 0 0 0 .059-.2.095.095 0 0 0-.026-.063c-.052-.062-.2-.152-.518-.209a3.876 3.876 0 0 0-.612-.053zM8.078 7.8a6.7 6.7 0 0 0 .2-.828c.031-.188.043-.343.038-.465a.613.613 0 0 0-.032-.198.517.517 0 0 0-.145.04c-.087.035-.158.106-.196.283-.04.192-.03.469.046.822.024.111.054.227.09.346z"/></svg>')
+$('.grid.views-view-grid > .row > .col-6').addClass('col-md-6 pb-2')
+$('.grid.views-view-grid > .row > .col-6').removeClass('col-6')
+$('.grid.views-view-grid > .row > .col-md-6 > div').css('background-color', 'white')    
+</script>
+
+
+
+{{page.footer}}

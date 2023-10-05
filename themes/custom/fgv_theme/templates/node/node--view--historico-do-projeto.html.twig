@@ -1,0 +1,43 @@
+{%
+  set classes = [
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+    'justify-content-center',
+  ]
+%}
+<article{{ attributes.addClass(classes) }}>
+
+  {{ title_prefix }}
+  {% if label and not page %}
+  <div class="row justify-content-left">
+    <div class="col-md-12 col-lg-8">
+      <h1 class="text-black text-left">{{ label }}</h1>
+    </div>
+  </div>
+  {% endif %}
+  {{ title_suffix }}
+
+  <div class="row justify-content-left">
+    <div class="col-md-12 col-lg-8" style="">
+      {{ content.field_ano }}
+      <h4 class="text-dark mt-3">{{ content.field_mes }}</h4>
+      <p>{{ content.field_descricao }}</p>
+
+    <div class="img">
+      {% if content.field_mes_imagem %}
+          {{ content.field_mes_imagem | raw }}
+      {% endif %}
+      </div>
+
+    </div>
+  </div>
+
+</article>
+
+<script>
+$('.field.field--name-field-ano-i.field--type-image.field--label-visually_hidden > .field__item').addClass('d-flex justify-content-left');
+</script>

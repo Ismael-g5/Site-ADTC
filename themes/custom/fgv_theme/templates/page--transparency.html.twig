@@ -1,0 +1,68 @@
+{# PÁGINA TRANSPARÊNCIA #}
+{{page.navigation}}
+
+<style>
+iframe{
+  width: 100% !important;
+}
+.contextual-region.d-flex.flex-column.view.view-transparencia.view-id-transparencia .view-content .col.pt-4{
+  padding: 0 !important;
+}
+
+</style>
+
+
+<div class="py-5" style="	background-image: url(&quot;{{base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-white teste12">Transparência</h1>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% set menu_name = 'transparencia' %}
+{% set menu_tree = drupal_menu(menu_name) %}
+{% set menu_items = menu_tree['#items'] %}
+
+
+<nav class="navbar navbar-expand navbar-dark sticky-top bg-light py-0 px-0 shadow-sm" id="sticky-menu">
+
+  <div class="container d-flex justify-content-center">
+    <div id="nav-internal-menu">
+      <ul class="navbar-nav">
+
+          {% for item in menu_items %}
+            <li class="nav-item border-right">
+              <a href="{{ item.url }}" class="nav-link">{{ item.title }}</a>
+
+            </li>
+          {% endfor %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{{ page.content }}
+{{ page.footer }}
+
+
+
+
+
+<script>
+
+/*esconde a navegaçao do druipal
+$('#block-transparencia').addClass('d-none')
+$('.field.field--name-field-media-image.field--type-image.field--label-visually_hidden > .field__item > img').css('height', '-webkit-fill-available')
+$('.field.field--name-field-media-image.field--type-image.field--label-visually_hidden > .field__item > img').css('width', '-webkit-fill-available')
+*/
+
+</script>
+
+
+
+
+

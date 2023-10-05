@@ -1,0 +1,24 @@
+{{page.navigation}}
+<style>
+.img-responsive{
+
+  height: -webkit-fill-available !important;
+  width: -webkit-fill-available !important;
+}
+</style>
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-white">Quem somos</h1>
+    </div>
+  </div>
+</div>
+</div>
+{{page.content}}
+<script>
+// corrige imagem
+$('.field.field--name-field-media-image.field--type-image.field--label-visually_hidden > .field__item > img').css('height', '-webkit-fill-available')
+$('.field.field--name-field-media-image.field--type-image.field--label-visually_hidden > .field__item > img').css('width', '-webkit-fill-available')
+</script>
+{{page.footer}}

@@ -1,0 +1,59 @@
+<div class="card-group tamanhoEvento">
+  <div class="card mb-3">
+    <div class="card-body py-2">
+      <div class="row">
+        <div class="col-md-12 px-0" style="">
+          <div class="row mx-1 d-flex justify-content-center">
+            <div class="col-lg-2 justify-content-center align-items-center col-sm-12 col-2 col-md-6 d-flex flex-column" style="">
+              <h4 class="text-center" style="text-transform: Uppercase !important;">
+              {# {{ fields.field_evento_data.content }} #}
+              
+              <label class="mesEvento" id="mesEvento">{{ fields.field_mes_evento.content }}</label>
+              <label class="diaEvento" id="diaEvento">{{ fields.field_dia.content }}</label>
+
+                <br></h4>
+              </div>
+              <div class="col-lg-10  col-sm-12 col-md-6 col-10" style="">
+                <h5 class="text-dark mt-2">
+                  {{ fields.field_cidade_s_.content }}
+                </h5>
+                <h6 class=" text-dark link-evento">
+                  <span style="font-weight: normal;">
+                    {{ fields.title.content }}
+                  </span>
+                </h6>
+              {# {% for cidade in fgv_theme.cidade_evento %}
+                            <h5 class="text-dark mt-2">{{cidade.value}}</h5>
+                          {% endfor %} #}
+              {# <h6 class="text-primary">{{fields.field_cidade_even.content}}</h6> #}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+  // alinhamento dos cards
+  $('.view-agenda > .view-content > .col.pt-4').addClass('col-lg-12')
+  $('.view-agenda > .view-content > .col.pt-4').removeClass('col')
+  $('.view-agenda > .view-content > .col-lg-12.pt-4 > .views-col').addClass('col-lg-6')
+  $('.view-agenda > .view-content > .col-lg-12.pt-4 > .col-lg-6').removeClass('views-col')
+  $('.view-agenda > .view-content').addClass('container')
+  $('.view-agenda > .view-content').css('padding', '0')
+  $('.view-agenda > .view-content > .pt-4.col-lg-12').addClass('px-0')
+  
+  // corrige css do dia e mes
+  $('.col-lg-10.col-sm-12.col-md-6.col-10 > .text-dark.link-evento > span > a').html('Mais informações')
+  $('.col-lg-10.col-sm-12.col-md-6.col-10 > .text-dark.link-evento > span > a').css('color', '#0C63AA')
+  $('.col-lg-10.col-sm-12.col-md-6.col-10 > .text-dark.link-evento > span > a').css('font-weight', '600')
+
+  $('.mesEvento').addClass('text-center text-dark mt-2 mb-0')
+  $('.mesEvento').css('font-size', '1.2rem')
+
+  $('.diaEvento').addClass('text-center text-dark')
+  $('.diaEvento').css('font-size', '2.4rem')
+</script>
+

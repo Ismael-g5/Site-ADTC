@@ -1,0 +1,304 @@
+<style>
+
+  .row.historico {
+    margin-top: 72px;
+    position: relative;
+  }
+
+  .row.historico .column-container {
+    max-width: 904px !important;
+  }
+
+  .row.historico #history-year {
+    width: 50%;
+    margin-left: -34px;
+  }
+
+  .row.historico #history-year h1 {
+    margin: 0 !important;
+    text-align: right !important;
+  }
+
+  .row.historico #history-year h1 span {
+    font-size: 48px;
+    font-weight: 800;
+  }
+
+  .row.historico .item,
+  .row.historico .item_2 {
+    width: 50%;
+    /* width: 422px !important; */
+    background-color: white;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .row.historico .item {
+    margin-left: -34px;
+  }
+
+  .row.historico .item_2 {
+    margin-right: -34px;
+    align-self: flex-end;
+  }
+
+  .row.historico .text-dark {
+    font: inter;
+    font-weight: 800;
+    size: 18px;
+    line-height: 21.78px;
+    height: 34px !important;
+  }
+
+  .row.historico .text-black {
+    color: rgba(12, 99, 170, 0.5) !important;
+    font: inter !important;
+    font-weight: 800 !important;
+    line-height: 58.09px;
+  }
+
+  .row.historico::before {
+    content: "";
+    width: 5px;
+    height: 100%;
+    background-color: #0c63aa;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .row.historico .column-container {
+    width: 100%;
+    max-width: 904px !important;
+    margin: 0 auto;
+  }
+
+  .row.historico .column-container .column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .row.historico .item .titulo-item h4,
+  .row.historico .item_2 .titulo-item h4 {
+    height: 100% !important;
+
+    padding: 16px 10px;
+    font-weight: 800;
+    position: relative;
+    margin: 0 !important;
+  }
+
+  .row.historico .item .titulo-item h4 {
+    text-align: right;
+  }
+
+  .row.historico .item_2 .titulo-item h4 {
+    text-align: left;
+  }
+
+  .row.historico .item .titulo-item h4::before,
+  .row.historico .item_2 .titulo-item h4::before {
+    content: "";
+    position: absolute;
+    top: 26px;
+    right: -12px;
+    width: 16px;
+    height: 10px;
+
+    background: #fdd32b;
+    transform: rotate(90deg);
+    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  }
+
+  .row.historico .item_2 .titulo-item h4::before {
+    left: -12px;
+    transform: rotate(268deg);
+  }
+
+  .row.historico .item h4[style="background-color: #CC8290;"]::before {
+    background: #cc8290;
+  }
+
+  .row.historico .item_2 h4[style="background-color: #CC8290;"]::before {
+    background: #cc8290;
+  }
+
+  .row.historico .item h4[style="background-color: #F0BF78;"]::before {
+    background: #f0bf78;
+  }
+
+  .row.historico .item_2 h4[style="background-color: #F0BF78;"]::before {
+    background: #f0bf78;
+  }
+
+  .row.historico .item p,
+  .row.historico .item_2 p {
+    padding: 16px 20px;
+    font-weight: 500;
+    text-align: left !important;
+    line-height: 24px;
+  }
+
+  @media (max-width: 768px) {
+    .row.historico::before {
+      left: 60px;
+    }
+  }
+
+
+</style>
+
+
+<div class="row historico justify-content-center">
+  <div class="col-md-12 col-lg-8 mx-5 custom-column">
+    {% set years = [] %}
+    {% for paragraph_item in row._entity.field_itens_ano %}
+      {% set paragraphYear = row._entity.field_ano_projeto.value | default('') | striptags %}
+      {% if paragraphYear not in years %}
+        {% set years = years|merge([paragraphYear]) %}
+      {% endif %}
+    {% endfor %}
+
+    {% for year in years %}
+
+    <div id="{{year}}" >
+    </div>
+    <div >
+    </div>
+    <div >
+    </div>
+
+      <div class="column-container desktop-column"> 
+      <!-- Desktop version --> 
+      <!--teste-->
+        <div class="column">
+          <!-- Ano -->
+          <div id="history-year">
+            <h1 class="text-black text-left">
+              <span>{{ year }}</span>
+            </h1>
+          </div>
+
+          {% set items = [] %}
+          {% for paragraph_item in row._entity.field_itens_ano %}
+            {% set paragraphYear = row._entity.field_ano_projeto.value | default('') | striptags %}
+            {% if paragraphYear == year %}
+              {% set items = items|merge([paragraph_item]) %}
+            {% endif %}
+          {% endfor %}
+
+          {% for i, item in items %}
+         
+            <div class="{% if loop.index is odd %}item{% else %}item_2{% endif %}">
+              <!-- Conteúdo do item -->
+              <div class="titulo-item">
+                <h4 class="text-dark mt-3" style="background-color: {{ row._entity.field_cor_mes.value }};">
+                  {{ item.entity.field_data_mes.value | default('') | striptags | date("d/m") }}
+                </h4>
+              </div>
+              {% if item.entity.field_imagem_mes.target_id %}
+                <div class="img-mes">
+                  {% set image_entity = item.entity.field_imagem_mes.entity %}
+                  {% if image_entity %}
+                    {% if image_entity.field_media_image.entity.fileuri %}
+                      <img src="{{ file_url(image_entity.field_media_image.entity.fileuri) }}" alt="Imagem" class="img-fluid" />
+                    {% endif %}
+                  {% endif %}
+                </div>
+              {% endif %}
+              <p class="text-center">
+                {{ item.entity.field_descricao_mes.value | default('') | striptags }}
+              </p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="mobile-column mobile-right"> <!-- Mobile version -->
+        <div id="history-year-mobile">
+          <h1 class="text-black text-left">
+            <span >{{ year }}</span>
+          </h1>
+        </div>
+        <div class="item_2" style="width: 100% !important; ">
+          {% for i, item in items %}
+            <!-- Conteúdo do item para a versão móvel -->
+            <div class="titulo-item">
+              <h4 class="text-dark mt-3" style="background-color: {{ row._entity.field_cor_mes.value }};">
+                  {{ item.entity.field_data_mes.value | default('') | striptags | date("d/m") }}
+              </h4>
+            </div>
+            {% if item.entity.field_imagem_mes.target_id %}
+              <div class="img-mes">
+                {% set image_entity = item.entity.field_imagem_mes.entity %}
+                {% if image_entity %}
+                  {% if image_entity.field_media_image.entity.fileuri %}
+                    <img src="{{ file_url(image_entity.field_media_image.entity.fileuri) }}" alt="Imagem" class="img-fluid" />
+                  {% endif %}
+                {% endif %}
+              </div>
+            {% endif %}
+            <p class="text-center">
+              {{ item.entity.field_descricao_mes.value | default('') | striptags }}
+            </p>
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  // Função para verificar se é uma versão móvel
+  function isMobile() {
+    return window.innerWidth <= 768; // Ajuste o valor conforme necessário
+  }
+
+  // Controla a exibição da versão móvel ou desktop
+  function updateLayout() {
+    if (isMobile()) {
+      // Exibe a versão móvel
+      document.querySelectorAll('.desktop-column').forEach(column => {
+        column.style.display = 'none';
+      });
+      document.querySelectorAll('.mobile-column').forEach(column => {
+        column.style.display = 'block';
+      });
+    } else {
+      // Exibe a versão desktop
+      document.querySelectorAll('.desktop-column').forEach(column => {
+        column.style.display = 'block';
+      });
+      document.querySelectorAll('.mobile-column').forEach(column => {
+        column.style.display = 'none';
+      });
+    }
+  }
+
+  setTimeout(() => {
+    (function() {
+
+      const links = $('#nav-internal-menu > ul > li > a')
+
+          $('#nav-internal-menu  > ul > li > a').on('click', function(event) {
+              event.preventDefault();
+              event.stopPropagation();
+
+              var target = $(`${this.getAttribute('href')}`);
+              var navbarHeight = $('#nav-internal-menu  .navbar').outerHeight();
+
+              if(target.length) {
+                  $('html, body').stop().animate({
+                      scrollTop: target.offset().top - 150
+                  }, 1000);
+              }
+          });
+
+    })();
+  }, 2000);
+
+
+  window.addEventListener('load', updateLayout);
+  window.addEventListener('resize', updateLayout);
+</script>

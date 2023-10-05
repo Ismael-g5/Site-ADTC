@@ -1,0 +1,728 @@
+<script src="https://code.jquery.com/jquery-3.6.1.min.js"
+  integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+<script>
+  // Função para verificar se é uma versão móvel
+  function isMobile() {
+    return window.innerWidth <= 768; // Ajuste o valor conforme necessário
+  }
+
+  // Controla a exibição da versão móvel ou desktop
+  function updateLayout() {
+    if (isMobile()) {
+      // Exibe a versão móvel
+      document.querySelectorAll('.container.equipe .equipe-body').forEach(column => {
+        column.style.display = 'none';
+      });
+
+      document.querySelectorAll('#equipe-wrapper').forEach(column => {
+        column.classList.add('pb-0');
+        column.classList.add('pt-5');
+        column.classList.remove('py-5');
+
+      });
+
+      document.querySelectorAll('.mobile-version').forEach(column => {
+        column.style.display = 'block';
+      });
+    } else {
+      // Exibe a versão desktop
+      document.querySelectorAll('.container.equipe .equipe-body').forEach(column => {
+        column.style.display = 'block';
+      });
+
+      document.querySelectorAll('#equipe-wrapper').forEach(column => {
+        column.classList.remove('pb-0');
+        column.classList.remove('pt-5');
+        column.classList.add('py-5');
+      });
+
+      document.querySelectorAll('.mobile-version').forEach(column => {
+        column.style.display = 'none';
+      });
+    }
+  }
+
+  // Atualiza o layout ao carregar a página e ao redimensionar a janela
+  window.addEventListener('load', updateLayout);
+  window.addEventListener('resize', updateLayout);
+</script>
+{#
+/**
+* @file
+* Default view template to display all the fields in a row.
+*
+* Available variables:
+* - view: The view in use.
+* - fields: A list of fields, each one contains:
+* - content: The output of the field.
+* - raw: The raw data for the field, if it exists. This is NOT output safe.
+* - class: The safe class ID to use.
+* - handler: The Views field handler controlling this field.
+* - inline: Whether or not the field should be inline.
+* - wrapper_element: An HTML element for a wrapper.
+* - wrapper_attributes: List of attributes for wrapper element.
+* - separator: An optional separator that may appear before a field.
+* - label: The field's label text.
+* - label_element: An HTML element for a label wrapper.
+* - label_attributes: List of attributes for label wrapper.
+* - label_suffix: Colon after the label.
+* - element_type: An HTML element for the field content.
+* - element_attributes: List of attributes for HTML element for field content.
+* - has_label_colon: A boolean indicating whether to display a colon after
+* the label.
+* - element_type: An HTML element for the field content.
+* - element_attributes: List of attributes for HTML element for field content.
+* - row: The raw result from the query, with all data it fetched.
+*
+* @see template_preprocess_views_view_fields()
+*
+* @ingroup themeable
+*/
+#}
+
+{# {% for field in fields -%}
+{{ field.separator }}
+{%- if field.wrapper_element -%}
+<{{ field.wrapper_element }}{{ field.wrapper_attributes }}>
+  {%- endif %}
+  {%- if field.label -%}
+  {%- if field.label_element -%}
+  <{{ field.label_element }}{{ field.label_attributes }}>{{ field.label }}{{ field.label_suffix }}</{{
+    field.label_element }}>
+  {%- else -%}
+  {{ field.label }}{{ field.label_suffix }}
+  {%- endif %}
+  {%- endif %}
+  {%- if field.element_type -%}
+  <{{ field.element_type }}{{ field.element_attributes }}>{{ field.content }}</{{ field.element_type }}>
+  {%- else -%}
+  {{ field.field_image.content }}
+  {%- endif %}
+  {%- if field.wrapper_element -%}
+</{{ field.wrapper_element }}>
+{%- endif %}
+{%- endfor %} #}
+<div class="py-5 border-bottom">
+  <div class="container">
+    <div class="">
+      {# <div class="col-md-6 text-left d-flex align-items-start">
+        <h3 class="lead">{{fields.field_governanca_titulo.content}}</h3>
+      </div> #}
+      <div>
+        <p class="">{{fields.field_governanca_descricao.content}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <h3 class="text-dark text-center">{{fields.field_governanca_titulo_1.content}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" style="display: flex;justify-content: center;">
+        {{fields.field_estrutura_governanca.content}}</div>
+    </div>
+  </div>
+</div>
+<div class="pb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <h3 class="text-dark text-center">{{fields.field_governanca_titulo_2.content}}</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card border-0">
+          <div class="card-body">
+            <h4 class="text-dark">{{fields.field_coordenacoes_titulo_1.content}}</h4>
+            <p class="text-black">{{fields.field_coordenacoes_subtitulo_1.content}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0">
+          <div class="card-body">
+            <h4 class="text-dark">{{fields.field_coordenacoes_titulo_2.content}}</h4>
+            <p class="text-black">{{fields.field_coordenacoes_subtitulo_2.content}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0">
+          <div class="card-body">
+            <h4 class="text-dark">{{fields.field_coordenacoes_titulo_3.content}}</h4>
+            <p class="text-black">{{fields.field_coordenacoes_subtitulo_3.content}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card border-0">
+          <div class="card-body">
+            <h4 class="text-dark">{{fields.field_coordenacoes_titulo_4.content}}</h4>
+            <p class="text-black">{{fields.field_coordenacoes_subtitulo_4.content}}</p>
+          </div>
+        </div>
+      </div>
+  <div class="col-md-6">
+        <div class="card border-0">
+          <div class="card-body">
+            <h4 class="text-dark">{{fields.field_coordenacoes_titulo_5.content}}</h4>
+            <p class="text-black">{{fields.field_coordenacoes_subtitulo_5.content}}</p>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+<div class="py-5 border-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <h3 class="text-dark text-center">{{fields.field_governanca_titulo_3.content}}</h3>
+      </div>
+    </div>
+    <div class="card-deck">
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <h5 class="text-dark text-left">{{fields.field_gestao_titulo_1.content}}</h5>
+          <p class="text-black">{{fields.field_gestao_subtitulo_1.content}}</p>
+        </div>
+      </div>
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <h5 class="text-dark text-left">{{fields.field_gestao_titulo_2.content}}</h5>
+          <p class="text-black">{{fields.field_gestao_subtitulo_2.content}}</p>
+        </div>
+      </div>
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <h5 class="text-dark text-left">{{fields.field_gestao_titulo_3.content}}</h5>
+          <p class="text-black">{{fields.field_gestao_subtitulo_3.content}}</p>
+        </div>
+      </div>
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <h5 class="text-dark text-left">{{fields.field_gestao_titulo_4.content}}</h5>
+          <p class="text-black">{{fields.field_gestao_subtitulo_4.content}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-5 bg-light border-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <h3 class="text-dark text-center">{{fields.field_gestao_risco_titulo_1.content}}</h3>
+      </div>
+    </div>
+    <div class="card-deck">
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <p class="text-black">{{fields.field_gestao_risco_descricao_1.content}}</p>
+        </div>
+      </div>
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <p class="text-black">{{fields.field_gestao_risco_descricao_2.content}}</p>
+        </div>
+      </div>
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <p class="text-black">{{fields.field_gestao_risco_descricao_3.content}}</p>
+        </div>
+      </div>
+      <div class="card rounded">
+        <div class="card-body"> <img class="img-fluid d-block mb-3"
+            src="{{ base_path ~ directory }}/images/img-star.png" width="60">
+          <p class="text-black">{{fields.field_gestao_risco_descricao_4.content}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Equipe -->
+<div class="py-5 bg-dark" id="equipe-wrapper"  style="background-color:#fff !important;">
+  <div class="container equipe">
+    <div class="row">
+      <div class="col-md-12 mb-3">
+        <h3 class="text-white text-center text-dark">{{fields.field_governanca_titulo_4.content}}</h3>
+        {# <p class="text-center text-white">{{fields.field_equipe_subtitulo.content}}</p> #}
+      </div>
+    </div>
+    <div class="row equipe-body">
+      <div class="col-md-12">
+        <div class="row">
+            <div class="card border-0 bg-dark conteiner"  style="background-color:#fff !important;">
+
+              <!-- loop equipe -->
+              {% set items_per_row = 5 %}
+              {% set item_count = row._entity.field_itens_e|length %}
+              {% set items = row._entity.field_itens_e %}
+
+              <div class="row">
+                  <!-- Gerente -->
+                  {% if items|length > 0 %}
+                      <div class="col-md-12 management-layer " > <!-- Ajuste de acordo com o sistema de grid -->
+                          <div class="teste text-center" style="display: flex; align-items: center;">
+                              {% set paragraph_item = items[0].entity %}
+                              {% set equipe_name = paragraph_item.field_equipe_nome_sobrenome.value %}
+                              {% set cargo = paragraph_item.field_equipe_cargo.value %}
+                              {% set file_item = paragraph_item.field_foto.entity %}
+                              {% set file_uri = file_item.uri.value %}
+                              {% set file_path = file_uri|replace({'public://': 'sites/default/files/'}) %}
+                              {% set base_url = base_path %}
+                              {% set file_url = base_url ~ file_path %}
+
+
+                              <div class="d-flex align-items-center">
+                                <img src="{{ file_url }}" style="width: 5rem; border-radius: 50%;">
+                                  <div class="cargo" style="margin-left: 1rem; text-align: left;">
+                                    <h6 style="margin: 0; font-size: 0.8rem;">{{ equipe_name | default('') | striptags }}</h6>
+                                    <p style="margin: 0; font-size: 0.6rem;">{{ cargo }}</p>
+                                  </div>
+                              </div>
+
+                              <div class="arrow-container">
+                                <div class="circle"></div>
+                                <div class="body"></div>
+                              </div>
+                            </div>
+                      </div>
+
+                      <div class="col-md-12 coordination-layer"> <!-- Ajuste de acordo com o sistema de grid -->
+
+                          <div class="row layer-border">
+                              {% for paragraph_reference in items[1:]|sort %}
+                                  {% set paragraph_item = paragraph_reference.entity %}
+                                  {% set equipe_name = paragraph_item.field_equipe_nome_sobrenome.value %}
+                                  {% set cargo = paragraph_item.field_equipe_cargo.value %}
+
+
+                                  {% set file_item = paragraph_item.field_foto.entity %}
+                                  {% set file_uri = file_item.uri.value %}
+                                  {% set file_path = file_uri|replace({'public://': 'sites/default/files/'}) %}
+                                  {% set base_url = base_path %}
+                                  {% set file_url = base_url ~ file_path %}
+
+                                <!-- Coordenador(a) -->
+                                {% if (
+                                    (cargo matches '/Coordenador do/' or cargo matches '/Coordenadora do/' or cargo matches '/Coordenadora de/' or cargo matches '/Coordenador de/')
+                                  and (cargo matches '/Adjunto/' == false)
+                                ) %}
+
+                                  <div class="col-md-2 border-child" > <!-- Ajuste de acordo com o sistema de grid -->
+                                      <div class="border-child-field"></div>
+                                  </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+
+
+                          <div class="row">
+                              {% for paragraph_reference in items[1:] %}
+                                  {% set paragraph_item = paragraph_reference.entity %}
+                                  {% set equipe_name = paragraph_item.field_equipe_nome_sobrenome.value %}
+                                  {% set cargo = paragraph_item.field_equipe_cargo.value %}
+
+
+                                  {% set file_item = paragraph_item.field_foto.entity %}
+                                  {% set file_uri = file_item.uri.value %}
+                                  {% set file_path = file_uri|replace({'public://': 'sites/default/files/'}) %}
+                                  {% set base_url = base_path %}
+                                  {% set file_url = base_url ~ file_path %}
+
+                                <!-- Coordenador(a) -->
+                                {% if (
+                                    (cargo matches '/Coordenador do/' or cargo matches '/Coordenadora do/' or cargo matches '/Coordenadora de/' or cargo matches '/Coordenador de/')
+                                  and (cargo matches '/Adjunto/' == false)
+                                ) %}
+
+                                  <div class="col-md-2" style="margin-left: 2.78%;"> <!-- Ajuste de acordo com o sistema de grid -->
+                                    <div class="arrow-container">
+                                      <div class="body"></div>
+                                      <div class="arrow"></div>
+                                    </div>
+                                    <div class="teste text-center" style="display: flex; align-items: center;">
+                                      <img src="{{ file_url }}" style="width: 5rem; border-radius: 50%;">
+                                      <div  style="margin-left: 1rem; text-align: left;">
+                                        <h6 style="margin: 0; font-size: 0.8rem">{{ equipe_name | default('') | striptags }}</h6>
+                                        <p style="margin: 0; font-size: 0.6rem;">{{ cargo }}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                              {% endif %}
+                            {% endfor %}
+                          </div>
+                      </div>
+
+                      <div class="col-md-12 adjuncts-layer"> <!-- Ajuste de acordo com o sistema de grid -->
+
+                          <div class="row">
+                              {% for paragraph_reference in items[1:] %}
+
+                                  {% set paragraph_item = paragraph_reference.entity %}
+                                  {% set equipe_name = paragraph_item.field_equipe_nome_sobrenome.value %}
+                                  {% set cargo = paragraph_item.field_equipe_cargo.value %}
+
+
+                                  {% set file_item = paragraph_item.field_foto.entity %}
+                                  {% set file_uri = file_item.uri.value %}
+                                  {% set file_path = file_uri|replace({'public://': 'sites/default/files/'}) %}
+                                  {% set base_url = base_path %}
+                                  {% set file_url = base_url ~ file_path %}
+
+
+                                  <!-- Adjunto(a) -->
+                                  {% if (cargo matches '/Coordenador Adjunto/' or cargo matches '/Coordenadora Adjunta/') %}
+                                      <div class="adjunct col-md-2 mt-5" style="margin-left: 3%;"> <!-- Ajuste de acordo com o sistema de grid -->
+                                        <div class="arrow-container">
+                                          <div class="circle"></div>
+                                          <div class="body"></div>
+                                          <div class="arrow"></div>
+                                        </div>
+
+                                        <div class="teste text-center" style="display: flex; align-items: center;">
+                                          <img src="{{ file_url }}" style="width: 5rem; border-radius: 50%;">
+                                          <div style="margin-left: 1rem; text-align: left;">
+                                            <h6 style="margin: 0; font-size: 0.8rem;">{{ equipe_name | default('') | striptags }}</h6>
+                                            <p style="margin: 0; font-size: 0.6rem;">{{ cargo }}</p>
+                                          </div>
+                                         </div>
+                                      </div>
+
+
+
+
+                                  {% endif %}
+                              {% endfor %}
+                          </div>
+                      </div>
+                  {% endif %}
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Equipe - Versão Mobile -->
+<div class="mobile-version" id="team-layers">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 layer-column">
+        {% for paragraph_reference in items %}
+          {% set paragraph_item = paragraph_reference.entity %}
+          {% set cargo = paragraph_item.field_equipe_cargo.value %}
+          {% if (cargo matches '/Gerente/') %}
+            <!-- Conteúdo da equipe com cargo de Gerente na versão mobile -->
+            <div class="teste text-center" style="display: flex; align-items: center;">
+              {% set equipe_name = paragraph_item.field_equipe_nome_sobrenome.value %}
+              {% set file_item = paragraph_item.field_foto.entity %}
+              {% set file_uri = file_item.uri.value %}
+              {% set file_path = file_uri|replace({'public://': 'sites/default/files/'}) %}
+              {% set base_url = base_path %}
+              {% set file_url = base_url ~ file_path %}
+
+              <img src="{{ file_url }}" style="width: 5rem; border-radius: 50%;">
+              <div class="cargo" style="margin-left: 1rem; text-align: left;">
+                <h6 style="margin: 0; font-size: 0.8rem;">{{ equipe_name | default('') | striptags }}</h6>
+                <p style="margin: 0; font-size: 0.6rem;">{{ cargo }}</p>
+              </div>
+            </div>
+            <div class="arrow-container">
+              <div class="circle"></div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="col-md-6 layer-column">
+        <div class="content">
+          {% set is_offset = false %}
+
+          {% for paragraph_reference in items %}
+            {% set paragraph_item = paragraph_reference.entity %}
+            {% set cargo = paragraph_item.field_equipe_cargo.value %}
+            {% if not (cargo matches '/Gerente/') %}
+              <!-- Conteúdo da equipe com outros cargos na versão mobile -->
+              <div class="container {% if is_offset %}adjunt{% endif %} coordinator pl-0">
+
+                  <div class="arrow-container  arrow-right {% if is_offset %}  d-none {% endif %}">
+                    <div class="body"></div>
+                        <div class="arrow"></div>
+
+                  </div>
+
+
+                <div class="outros_cargos sub_item" style="display: flex; {% if is_offset %}margin-left: 50px;{% endif %}">
+                    {% if is_offset %}
+                      <div class="arrow-group">
+                        <div class="arrow-container arrow-down">
+                          <div class="circle"></div>
+                          <div class="body"></div>
+                        </div>
+
+                        <div class="arrow-container arrow-right">
+                          <div class="body"></div>
+                          <div class="arrow"></div>
+                        </div>
+                      </div>
+                    {% endif %}
+
+                    {% set equipe_name = paragraph_item.field_equipe_nome_sobrenome.value %}
+                    {% set file_item = paragraph_item.field_foto.entity %}
+                    {% set file_uri = file_item.uri.value %}
+                    {% set file_path = file_uri|replace({'public://': 'sites/default/files/'}) %}
+                    {% set base_url = base_path %}
+                    {% set file_url = base_url ~ file_path %}
+
+                    <img src="{{ file_url }}" style="width: 5rem; border-radius: 50%;">
+                    <div class="cargo" style="margin-left: 1rem; text-align: left;">
+                      <h6 style="margin: 0; font-size: 0.8rem;">{{ equipe_name | default('') | striptags }}</h6>
+                      <p style="margin: 0; font-size: 0.6rem;">{{ cargo }}</p>
+
+                    </div>
+                </div>
+              </div>
+
+
+              {% set is_offset = not is_offset %}
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fim da versão mobile -->
+
+
+<style>
+  .adjuncts-layer .arrow-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100px;
+      margin-bottom: 15px;
+  }
+
+  .management-layer .teste .arrow-container {
+      position: relative;
+      min-height: 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .circle {
+    width: 9px;
+    height: 9px;
+    border: 2px solid #FDD32B;
+    border-radius: 50%;
+    bottom: 0;
+  }
+
+  .arrow {
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 12px solid #FDD32B;
+      transform: rotate(180deg);
+  }
+
+  .arrow-container .body {
+      flex: 1 1 auto;
+      width: 2px;
+      background: #FDD32B;
+      margin: 0px;
+  }
+
+  .adjunct {
+      margin-top: 0px !important;
+  }
+
+  .management-laye{
+      margin-left: 0% !important;
+      margin: 0 !important;
+  }
+
+  .management-layer .teste {
+      flex-direction: column;
+  }
+
+  .coordination-layer .arrow-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 60px;
+      margin-bottom: 15px;
+  }
+
+  .border-child-field  {
+    border-top: 2px solid #FDD32B;
+    margin-right: 0%;
+    padding: 0px;
+  }
+
+  .border-child{
+    padding: 0px;
+  }
+
+  .border-child:first-child {
+    margin-right: 0%;
+    padding-left: 2.66% !important;
+  }
+
+  .border-child:last-child {
+    margin-right: 0%;
+    padding-right: 2.66% !important;
+  }
+
+  .row.layer-border {
+    justify-content: center;
+  }
+
+
+  #team-layers .layer-column .content {
+      border-left: 2px solid #FDD32B;
+  }
+
+  #team-layers .layer-column .container {
+      display: flex;
+  }
+
+  #team-layers .layer-column .container .arrow-container {
+      display: flex;
+      align-items: center;
+  }
+
+  #team-layers .layer-column .container .arrow-container .body {
+      width: 40px;
+      height: 2px;
+  }
+
+  #team-layers .layer-column .container .arrow-container.arrow-down .body{
+    height: 40px;
+    width: 2px !important;
+    flex: initial;
+  }
+
+  #team-layers .layer-column .container .arrow-container.arrow-down {
+      display: flex;
+      flex-direction: column;
+  }
+
+  #team-layers .layer-column .container .arrow-group .arrow-container.arrow-right {
+      width: 50%;
+      justify-content: flex-end;
+      align-self: end;
+      border-left: 2px solid #FDD32B;
+      border-bottom-left-radius: 4px;
+      align-items: baseline;
+  }
+
+  #team-layers .layer-column .container .arrow-container.arrow-right .arrow {
+      transform: rotate(90deg);
+  }
+
+  .arrow-group {
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 74px;
+      align-items: flex-end;
+  }
+
+  #team-layers .layer-column .container .arrow-group .arrow-container .body {
+      width: 50%;
+  }
+
+  #team-layers .layer-column .container .arrow-group .arrow-container.arrow-down {
+      width: 50%;
+      align-items: baseline;
+      flex: 1 1 auto;
+  }
+
+  #team-layers .layer-column .container .arrow-group .arrow-container.arrow-right .arrow {
+      margin-top: 0px;
+      position: relative;
+      top: 5px;
+  }
+
+  #team-layers .layer-column .container .arrow-group .arrow-container.arrow-down .circle {
+      position: relative;
+      right: 3.5px;
+  }
+
+  #team-layers .layer-column:first-child .circle {
+      position: relative;
+      left: -3px;
+  }
+
+  #team-layers.mobile-version .layer-column .cargo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  #team-layers .layer-column .container .arrow-group .arrow-container.arrow-down .body {
+    height: 100%;
+  }
+
+  #team-layers.mobile-version .layer-column .container:last-child .arrow-container {
+    background: #fff;
+    height: 40px;
+    align-items: baseline;
+    border-left: 3px solid #fff;
+    position: relative;
+    left: -3px;
+  }
+
+  #team-layers.mobile-version .layer-column .container:last-child {
+      align-items: self-end;
+  }
+
+  #team-layers.mobile-version .layer-column .container:last-child .arrow-container .body {
+      position: relative;
+      top: -12px;
+  }
+
+  #team-layers.mobile-version .layer-column .container:last-child .arrow-container .arrow {
+      position: relative;
+      top: -7px;
+  }
+
+  .arrow-group {
+      margin-top: 3px;
+  }
+
+  #team-layers.mobile-version .container img {
+    height: 80px;
+    width: 80px;
+    align-self: center;
+  }
+
+</style>
+
+

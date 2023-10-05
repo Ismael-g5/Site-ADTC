@@ -1,0 +1,122 @@
+{# PÁGINA GLOSSÁRIO #}
+<style>
+  .view-empty {
+    display: flex !important;
+    justify-content: center !important;
+    font-style: italic !important;
+    margin-top: 2rem !important;
+  }
+</style>
+
+{{page.navigation}}
+
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="text-white">Glossário</h1>
+      </div>
+    </div>
+  </div>
+</div>
+{{ page.navigation_glossario }}
+<div class="d-block d-sm-nonept-3">
+  <div class="container"></div>
+</div>
+{{page.content}}
+{{page.footer}}
+<script>
+  $(document).ready(function() {
+    // corrige css pós busca
+    //letra que vem do agrupamento feito no drupal
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > h3 > span').addClass('text-dark')
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > h3 > span').css('font-size','2.8rem')
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > h3').addClass('d-flex justify-content-center')
+    //titulo
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > .col.pt-4 > div >  .views-field.views-field-field-subtitulo-1 > .field-content').addClass('text-dark')
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > .col.pt-4 > div > .views-field.views-field-field-subtitulo-1 > .field-content').css('font-size', '1.6rem')
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > .col.pt-4 > div > .views-field.views-field-field-subtitulo-1 > .field-content').css('font-weight', '700')
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > .col.pt-4 > div > .views-field.views-field-field-subtitulo-1 > .field-content').css('margin-bottom', '0.75rem')
+
+
+    // corrige css
+    //letra que vem do agrupamento feito no drupal
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > h3 > span').addClass('text-dark')
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > h3 > span').css('font-size','2.8rem')
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > h3').addClass('d-flex justify-content-center')
+    // titulo
+    $('.views-field.views-field-field-subtitulo-1 > .field-content').addClass('text-dark')
+    $('.views-field.views-field-field-subtitulo-1 > .field-content').css('font-size', '1.6rem')
+    $('.views-field.views-field-field-subtitulo-1 > .field-content').css('font-weight', '700')
+    $('.views-field.views-field-field-subtitulo-1 > .field-content').css('margin-bottom', '0.75rem')
+
+    $('.field.field--name-field-subtitulo-1.field--type-string.field--label-visually_hidden > .field__item').addClass('text-dark')
+    $('.field.field--name-field-subtitulo-1.field--type-string.field--label-visually_hidden > .field__item').css('font-size', '1.6rem')
+    $('.field.field--name-field-subtitulo-1.field--type-string.field--label-visually_hidden > .field__item').css('font-weight', '700')
+    $('.field.field--name-field-subtitulo-1.field--type-string.field--label-visually_hidden > .field__item').css('margin-bottom', '0.75rem')
+
+    // campo titulo letra
+    //$('.views-field.views-field-field-titulo-letra').addClass('d-flex justify-content-center')
+    //$('.views-field.views-field-field-titulo-letra > .field-content').addClass('text-dark text-center mt-5')
+    //$('.views-field.views-field-field-titulo-letra > .field-content').css('font-size','2.8rem')
+    //$('.views-field.views-field-field-titulo-letra > .field-content').css('font-weight', '700')
+
+    // alinahmento
+    $('.col.pt-4').addClass('container')
+    $('.col.pt-4').removeClass('col pt-4')
+    $('.container > .views-col').addClass('py-2')
+
+    // texto
+    $('.field.field--name-field-descricao.field--type-text-long.field--label-visually_hidden').css('margin-bottom', '0.75rem')
+
+    //esconde a navegaçao do druipal
+    $('#block-glossario').addClass('d-none')
+
+    // faz com que a div nao suma atras da barra
+    //$('.views-field.views-field-field-titulo-letra.d-flex.justify-content-center > .field-content.text-dark.text-center.mt-5 > span').each(function () {
+    //  $(this).parent().parent().parent().before('<div id="'+$(this).attr('id')+'" style="	min-height: 100px;"></div>');
+    //})
+    $('.d-flex.flex-column.view.view-glossario.view-id-glossario > .view-content > h3 > span').each(function () {
+      $(this).parent().before('<div id="'+$(this).attr('id')+'" style="	min-height: 166px;"></div>');
+    })
+
+    $('.view-glossario > .view-content > .container').addClass('d-flex flex-column justify-content-center')
+    $('.container.d-flex.flex-column.justify-content-center').addClass('maxWDesktop40')
+    $('#edit-combine2').val(getUrlParams(window.location.search)?.combine ?? '');
+    //marca de amarelo os itens com pesquisa
+    markSearchedItems(getUrlParams(window.location.search));
+  });
+
+  const getUrlParams = function (queryParams) {
+    if(queryParams != null && queryParams !== undefined && queryParams.length > 0) {
+      let json = {};
+      $.each(queryParams.replaceAll('?', '').split('&'), function(key, value){
+        let item= value.split('=');
+        json[item[0]] = decodeURIComponent(item[1]);
+    });
+      return json;
+    }
+    return null;
+  }
+
+  const markSearchedItems = function (items){
+    let descricao = $('.views-field.views-field-field-descricao-1 .field-content p');
+    let subtitulo = $('.views-field.views-field-field-subtitulo-1 .field-content');
+    $.each(items, function(key, value){
+      if(value && value.trim().length > 0){
+        $.each(descricao, function(k, v){
+          let regExp = new RegExp(`${value}`, 'gi');
+          $(v).html(v.innerHTML.replaceAll(regExp, function(match){
+          return `<mark>${match}</mark>`;
+          }));
+        })
+        $.each(subtitulo, function(k, v){
+          let regExp = new RegExp(`${value}`, 'gi');
+          $(v).html(v.innerHTML.replaceAll(regExp, function(match){
+          return `<mark>${match}</mark>`;
+          }));
+        })
+      }
+    })
+  }
+</script>

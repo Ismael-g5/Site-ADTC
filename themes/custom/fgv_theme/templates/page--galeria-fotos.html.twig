@@ -1,0 +1,101 @@
+{#
+PÁGINA GALERIA DE FOTOS
+#}
+{{page.navigation}}
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-white">Galeria de fotos</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-block d-sm-nonept-3 py-4 bg-light">
+    <div class="container">
+    <form class="views-exposed-form" data-drupal-selector="views-exposed-form-galeria-de-fotos-page-1" action="{{ base_path }}galeria-fotos" method="get" id="views-exposed-form-galeria-de-fotos-page-1" accept-charset="UTF-8">
+    <div class="row mx-0 py-3 px-3 bg-white mb-3">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-lg-4 pt-1">
+              <div class="form-group"><label style="font-weight: 400;">Pesquisar</label>
+                <div class="form-group">
+                  <input type="text" data-drupal-selector="edit-keys" id="edit-keys" class="form-control py-3" placeholder="Palavra-chave" name="keys">
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 pt-1">
+              <div class="form-group"><label style="font-weight: 400;">Ano</label>
+                <div class="select-wrapper">
+                  <select data-drupal-selector="edit-tid" class="form-control form-select select" id="edit-tid" name="tid" style="height:3rem"></select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-3 d-flex flex-row justify-content-center align-items-center" style="">
+            <button data-drupal-selector="edit-submit-galeria-de-fotos" class="btn btn-yellow text-dark px-5 py-2" type="submit" id="edit-submit-galeria-de-fotos">Buscar</button></div>
+          </div>
+        </div>
+      </div>
+      </form>
+    </div>
+    <div class="container">
+    {{page.content}}
+  </div>  
+  </div>
+  <div class="col-lg-12 p-0">
+    {{page.footer}}
+  </div>
+
+<script>
+  // corrige o layout das fotos
+  // card
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4').addClass('my-2')
+
+  // imagem
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-foto > .field-content > a > img').addClass('card-img-top')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-foto > .field-content > a > img').removeClass('img-responsive')
+  // fita iamgem na div
+  $('.card > a > img').css('width', '-webkit-fill-available')
+
+  // data
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-created > .field-content').css('text-transform', 'uppercase')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-created').addClass('pt-2 pl-2')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-created').css('background-color', 'white')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-created').css('font-weight', '600')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-created > .field-content').addClass('mb-0 my-2 text-dark')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-created').prepend("<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-calendar3 mr-2 text-primary' viewBox='0 0 16 16'><path d='M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z'/>  <path d='M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z'/></svg>")
+  $('.mb-0.my-2.text-dark').css('text-transform', 'uppercase')
+
+  // texto
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao').addClass('py-2 pl-2')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao').css('background-color', 'white')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao').css('font-weight', '600')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao > .field-content').addClass('mb-0 text-dark')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao > .field-content').css('font-size', '1.25rem')
+
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4').removeClass('col-4 col-sm-4 col-lg-4 col-xl-4')
+
+  // alinahmento 
+  $('.views-col > .row.pt-4').removeClass('row pt-4')
+  $('.col-md-4').addClass('col-lg-4 pt-3')
+
+  //pager
+  $('.pager-nav.text-center.d-flex.justify-content-center').addClass('col-lg-12 pt-4')
+
+  // texto do select
+  setTimeout(function() {
+    $('.select-wrapper > .form-select.form-control').find('option').each(function() {
+      if($(this).val() == "All"){
+        $('.select-wrapper > .form-select.form-control.select').append('<option value="'+$(this).val()+'" selected="selected">Selecione uma opção</option>')
+        return
+      }
+      $('.select-wrapper > .form-select.form-control.select').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).html()+'</option>')
+    });
+    $('.select-wrapper > .form-select.form-control.select').val("All").change();
+  }, 500)
+</script>
+
+
+
+
+

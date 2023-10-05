@@ -1,0 +1,68 @@
+{#
+PÁGINA CONTATO
+#}
+
+{{page.navigation}}
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-white">Dúvidas</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  {# <div class="py-5 bg-light">
+    <div class="container">
+    {{page.sidebar_first}}
+    </div> #}
+
+    <div class="py-5 bg-light">
+      <div class="container">
+        <div id="" class="">
+          <div class="row mb-5">
+            <div class="col-md-12">
+              <h1 class="text-center text-dark">Perguntas frequentes</h1>
+            </div>
+          </div>
+          {{page.content_duvidas_frenquentes}}
+        </div>
+      </div>
+    </div>
+  {# </div> #}
+
+{{page.footer}}
+<script>
+var count = 0;
+$('.acordionCard').each(function () {
+  count++;
+  $(this).find('.linkCollapse').attr('data-target', '#accordion'+count);
+  $(this).find('.collapseContainer').attr('id', 'accordion'+count);
+  $(this).find('.collapseContainer').attr('data-parent', '#accordion'+count);
+})
+
+/* Máscaras ER */
+function mascara(o,f){
+  v_obj=o
+  v_fun=f
+  setTimeout("execmascara()",1)
+}
+function execmascara(){
+  v_obj.value=v_fun(v_obj.value)
+}
+function mtel(v){
+  v=v.replace(/\D/g,""); //Remove tudo o que não é dígito
+  v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+  v=v.replace(/(\d)(\d{4})$/,"$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
+  return v;
+}
+function id( el ){
+return document.getElementById( el );
+}
+window.onload = function(){
+$('#edit-telefone').attr('maxlength', '15');
+id('edit-telefone').onkeyup = function(){
+  mascara( this, mtel );
+}
+}
+</script>

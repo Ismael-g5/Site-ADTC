@@ -1,0 +1,56 @@
+framework:
+  css:
+    theme:
+      css/theme.css: {}
+      css/dev.css: {}
+      # css/style.css: {}
+
+# Uncomment for LESS source JavaScript files.
+#  js:
+#    bootstrap/js/affix.js: {}
+#    bootstrap/js/alert.js: {}
+#    bootstrap/js/button.js: {}
+#    bootstrap/js/carousel.js: {}
+#    bootstrap/js/collapse.js: {}
+#    bootstrap/js/dropdown.js: {}
+#    bootstrap/js/modal.js: {}
+#    bootstrap/js/tooltip.js: {}
+#    bootstrap/js/popover.js: {}
+#    bootstrap/js/scrollspy.js: {}
+#    bootstrap/js/tab.js: {}
+#    bootstrap/js/transition.js: {}
+
+# Uncomment for SASS source JavaScript files.
+  js:
+   javascript/galeria.js: {}
+  #  javascript/inqChatLaunch10008553.js: {}
+  #  bootstrap/js/carousel.js: {}
+
+# Nuance Chatbot
+nuance-chatbot:
+  remote: https://vikfgv.digital.nuance.com/chatskins/launch/inqChatLaunch10008553.js
+  version: 1669876227486
+  license:
+    name: Copyright
+  js:
+    https://vikfgv.digital.nuance.com/chatskins/launch/inqChatLaunch10008553.js: { type: external }
+
+carousel:
+  js:
+    javascript/carousel.js: {}
+  dependencies:
+    - core/jquery
+
+scripts:
+  js:
+    javascript/scripts.js: {}
+  dependencies:
+    - core/jquery
+
+slick:
+  css:
+    theme:
+      /libraries/slick/slick/slick.css: {}
+      /libraries/slick/slick/slick-theme.css: {}
+  js:
+    /libraries/slick/slick/slick.min.js: {}

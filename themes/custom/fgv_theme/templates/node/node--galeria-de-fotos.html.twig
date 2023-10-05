@@ -1,0 +1,205 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ */
+#}
+{%
+  set classes = [
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+%}
+{%
+  set nao_exibir = [
+    'field_imagem_capa_a',
+    'field_data_albm',
+    'field_descricao_album',
+    'field_locali',
+    'field_ano_album',
+  ]
+%}
+<div class="py-5" style="	background-image: url(&quot;{{base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-white">{{ label }}</h1>
+    </div>
+  </div>
+</div>
+</div>
+<div class="py-2 border-bottom">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-lg-8 px-0">
+      <a class="btn" href="{{base_path}}galeria-fotos"><i class="fa-solid fa-arrow-left mr-2 text-primary"></i>Voltar para galeria de fotos</a>
+    </div>
+  </div>
+</div>
+</div>
+<div class="py-3">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" style="">
+      <div class="card mt-2 border-0">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-12 px-0" style="">
+              <div class="row">
+                <div class="col-lg-3" style="">
+                  <h6 class="mb-0 my-2 text-dark d-flex align-itens-center"><i class="bi bi-calendar3 mr-2 text-primary"></i>{{content.field_data_albm}}</h6>
+                </div>
+                <div class="col-lg-3" style="">
+                  <h6 class="mb-0 my-2 text-dark d-flex align-itens-center"><i class="bi bi-geo-alt mr-2 text-primary"></i>{{content.field_locali}}</h6>
+                </div>
+              </div>
+              <p class="">{{content.field_descricao_album}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+  {# <div class="" style="">
+    <a class="carousel-control-prev-dados d-flex align-items-end justify-content-end mr-1" href="#views-bootstrap-grafico-block-1" data-slide="prev" role="button" id="cboxPrevious"> 
+      <span class="bi bi-arrow-left p-3 bg-yellow"></span> <span class="sr-only ">Previous</span>
+     </a>
+    <a class="carousel-control-prev-dados d-flex align-items-end justify-content-end" href="#views-bootstrap-grafico-block-1" role="button" data-slide="next" id="cboxNext">
+      <span class="bi bi-arrow-right bi-2x p-3 bg-yellow"></span> <span class="sr-only">Next</span> 
+    </a> 
+  </div>  
+  </div> #}
+  <article{{ attributes.addClass(classes) }}>
+    <div{{ content_attributes.addClass('content') }}>
+
+
+      {{ content|without(nao_exibir) }}
+    </div>
+  </article>
+<script>
+{# classes css para galeria de fotos #}
+$('.field.field--name-field-foto-galeria.field--type-image.field--label-visually_hidden').addClass('container')
+$('.field.field--name-field-foto-galeria.field--type-image.field--label-visually_hidden > .field__items').addClass('row')
+$('.field.field--name-field-foto-galeria.field--type-image.field--label-visually_hidden > .field__items > .field__item').addClass('col-lg-4 mt-4')
+
+// corrige texto
+$('.field.field--name-field-descricao-album.field--type-text.field--label-visually_hidden').addClass('col-lg-12')
+$('.field.field--name-field-descricao-album.field--type-text.field--label-visually_hidden').css('padding', '0px')
+
+// tira a classe da data
+$('.field.field--name-field-data-albm.field--type-datetime.field--label-visually_hidden').removeClass('field field--name-field-data-albm field--type-datetime field--label-visually_hidden')
+$('.field.field--name-field-locali.field--type-text.field--label-visually_hidden').removeClass('field field--name-field-locali field--type-text field--label-visually_hidden')
+
+// setas da galeria -----------------
+setTimeout(() => {
+
+  // cria os botoes com o svg 
+  $('#cboxOverlay').parent().prepend($('<div class="containerGaleria visually-hidden px-3 visuallyMobile" id="containerGaleria" style="position: fixed; z-index:999999; color:white; display:flex; justify-content:space-between;width: 100%;top:50%"> <a id="anterior"><svg id="setinhasGaleria" class="setinhasGaleria" style="height: 3rem; fill: rgb(186,186,186); cursor: pointer;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M9.4 278.6c-12.5-12.5-12.5-32.8 0-45.3l128-128c9.2-9.2 22.9-11.9 34.9-6.9s19.8 16.6 19.8 29.6l0 256c0 12.9-7.8 24.6-19.8 29.6s-25.7 2.2-34.9-6.9l-128-128z"/></svg></a>"<a id="proximo"><svg id="setinhasGaleria" class="setinhasGaleria" style="height: 3rem; fill: rgb(186,186,186); cursor: pointer;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><path d="M246.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-128-128c-9.2-9.2-22.9-11.9-34.9-6.9s-19.8 16.6-19.8 29.6l0 256c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l128-128z"/></svg> </a></div>'))
+
+  // faz sumir os botoes quando clica no overlay e no fechar
+  $('#cboxOverlay').click(function () {
+    $('#cboxCurrent').removeClass('visually-hidden')
+    $('#containerGaleria').addClass('visually-hidden')
+    $('#cboxNext').addClass('visually-hidden')
+  })
+  setTimeout(() => {
+    $('#cboxClose').click(function () {
+    $('#cboxCurrent').removeClass('visually-hidden')
+    $('#containerGaleria').addClass('visually-hidden')
+    $('#cboxNext').addClass('visually-hidden')
+  })    
+  }, 2000);
+
+  // clica no svg e aciona o click do botao do plugin
+  $('#proximo').click(function () {
+    $('#cboxNext').trigger('click')
+  })
+  $('#anterior').click(function () {
+    $('#cboxPrevious').trigger('click')
+  }) 
+
+  // oculta o nome das imagens
+  $('#cboxTitle').addClass('visually-hidden d-none')
+
+  // mobile
+  $('.colorbox.cboxElement').click(function(){
+    $('#cboxCurrent').removeClass('visually-hidden')
+    $('#containerGaleria').removeClass('visually-hidden')
+  })
+
+  // botao de fechar 
+  $('#colorbox').prepend('<div style="display: flex; position: relative; z-index: 999999; fill: white; left: 0; justify-content: end; width: 100%; opacity: 0.5;" id="botaoFechar" class="botaoFechar mg-2"> <svg class="mr-1 mt-1" style="cursor:pointer; width: 2rem;"xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z"/></svg> </div>')
+  $('#botaoFechar').click(function () {
+    $('#cboxClose').trigger('click');
+    $('#containerGaleria').addClass('visually-hidden')
+  })
+}, 1500);
+
+</script>

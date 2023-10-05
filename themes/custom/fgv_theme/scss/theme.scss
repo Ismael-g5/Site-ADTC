@@ -1,0 +1,462 @@
+// Options
+
+// Quickly modify global styling by enabling or disabling optional features.
+
+//Fonts 
+@import url('https://fonts.googleapis.com/css?family=Inter:200,400,500,550,600,700,900');
+
+$font-family-base: 'Inter', sans-serif;
+$headings-font-family: 'Inter', sans-serif;
+$display-font-family: $headings-font-family;
+$font-weight-normal: 400;
+$headings-font-weight: 600;
+$lead-font-size:   1.50rem;
+$lead-font-weight:   300;
+  
+$enable-rounded:            true !default;
+$enable-shadows:            true;
+$enable-transitions:        true;
+$enable-hover-media-query:  false;
+$enable-grid-classes:       true;
+$enable-print-styles:       true;
+
+// Variables
+//
+// Colors
+
+$theme-colors: (
+  primary: #0C63AA,
+  secondary: #4ED6DA,
+  light: #F5F6F9,
+  dark: #002D4D,
+  info: #FFFCF2,
+  success: #28a745,
+  warning: #ffc107,
+  danger: #dc3545,
+  black: #232323,
+	yellow: #FDDB51,
+	purple: #9C64A2,
+	aqua: #3BAE96
+);
+
+
+$body-color: #4D4E56;
+
+
+$body-color-inverse: invert($body-color) !default;
+$link-color: #008BC9;
+
+
+$spacer: 1.5rem;
+$enable-responsive-font-sizes: true;
+$body-bg: #FFFFFF;
+$border-radius-sm: 0.125rem;
+$border-radius: 0;
+$border-radius-lg: 0.5rem;
+
+@import 'bootstrap-4.3.1';
+
+
+/* Headings start */
+
+h1 {
+	font-size: 3rem;
+}
+
+h2 {
+	font-size: 2.2rem;
+}
+
+h3 {
+	font-size: 1.8rem;
+}
+
+h4 {
+	font-size: 1.5rem;
+}
+
+h5 {
+	font-size: 1.25rem;
+}
+
+h6 {
+	font-size: 1rem;
+}
+
+/* If screen size is 600px wide, or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  h1 {
+    font-size: 2.3rem;
+  }
+  h2 {
+   font-size: 1.5rem;
+  }
+  h3 {
+   font-size: 1.2rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+  font-size: 1rem;
+  }  
+  h6 {
+  font-size: 0.9rem;
+  }
+}
+
+/* Headings end */
+/*Navbar - start*/
+.navbar-nav {
+	font-weight:600;
+}
+/*Navbar - end*/
+/*logo mobile and desktop - start*/
+  .logo .mobile {
+      display: none;
+    }
+  /* when screen is less than 600px wide
+     show mobile version and hide desktop */
+  @media (max-width: 600px) {
+    .logo .mobile {
+      display: block;
+    }
+    .logo .desktop {
+      display: none;
+    }
+  }
+/*logo mobile and desktop - end*/
+
+/* acordion card start */
+.collapsible-link::before {
+  content: '';
+  width: 14px;
+  height: 2px;
+  background: #146D38;
+  position: absolute;
+  top: calc(50% - 1px);
+  right: 1rem;
+  display: block;
+  transition: all 0.3s;
+}
+
+/* Vertical line */
+.collapsible-link::after {
+  content: '';
+  width: 2px;
+  height: 14px;
+  background: #146D38;
+  position: absolute;
+  top: calc(50% - 7px);
+  right: calc(1rem + 6px);
+  display: block;
+  transition: all 0.3s;
+}
+
+.collapsible-link, a:hover {
+  text-decoration: none;
+}
+  
+  
+.collapsible-link[aria-expanded='true']::after {
+  transform: rotate(90deg) translateX(-1px);
+}
+
+.collapsible-link[aria-expanded='true']::before {
+  transform: rotate(180deg);
+}
+
+/* acordion card end*/
+
+/* Menu */
+@media(max-width: 7990px) {
+    .menu-mobile .menu {
+        position: fixed;
+        width: 100vw;
+        background-color:#0C63AA;
+        left: -100vw;
+        top: 0;
+        height: 100vh;
+        z-index: 3;
+    }
+
+    .menu .holder {
+        flex: 1;        
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 1rem;
+    }
+    .menu .borda {
+        width: 4rem;
+        background-color:#002D4D;
+        height: 100%;      
+        
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .menu-mobile .menu{
+        left: -100vw;
+    }
+    .menu-mobile .menu.open{
+        display: block;
+    }
+
+    .navbar .close-menu {
+        border: 0;
+        background-color: transparent;
+        color: white;
+        font-size: 32px;
+        outline: 0!important;
+
+        
+    }
+
+    .menu-mobile .menu.open {
+      	display:flex;
+        animation: slide-navbar-oppening 0.2s;
+        left: 0vw;
+    }
+
+    .menu-mobile .menu.closing {
+      	display:flex;
+        animation: slide-navbar-closing 0.21s;
+        left: -100vw;
+    }
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #16181b;
+    text-decoration: none;
+    background-color: #255897;
+}
+
+@keyframes slide-navbar-oppening {
+    0%{
+        left: -100vw;
+    }
+    100%{
+        left: 0vw;
+    }
+}
+
+@keyframes slide-navbar-closing {
+    0%{
+        left: 0vw;
+    }
+    100%{
+        left: -100vw;
+    }
+
+}
+
+@media(min-width: 992px) {
+    .mobile-only {
+        display: none!important;
+    }
+}
+@media(max-width: 993px) {
+    .desktop-only {
+        display: none!important;
+    }
+}
+
+.sobreposicao {
+  margin-top: -180px;
+}
+
+.button-sobreposto {
+  margin-top: -25px;
+  z-index:-1 !important; 
+}
+
+/* Border - start*/
+.border {
+  border: 1px solid #EFEFF2 !important; }
+
+.border-top {
+  border-top: 1px solid #EFEFF2 !important; }
+
+.border-right {
+  border-right: 1px solid #EFEFF2 !important; }
+
+.border-bottom {
+  border-bottom: 1px solid #EFEFF2 !important; }
+
+.border-left {
+  border-left: 1px solid #EFEFF2 !important; }
+
+/* Border - end*/
+
+.card {
+	border: 1px solid #EFEFF2; 
+}
+
+.carousel-control-prev-dados, .carousel-control-next-dados {
+	  position: inherit;
+  	width: 60px;
+    height: 60px;
+    color: #002D4D; 
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    top: 50%;
+    background: none;
+}
+
+
+
+.dropdown-menu.dropdown-menu-right.show{
+Min-width: 350px;
+padding-right: 10px;
+Padding-left: 10px;
+padding-top: 10px;
+}
+
+.btn.btn-outline-warning.btn-lg
+{
+padding: 0px 10px;
+background-color: #FDDB51;
+}
+
+/* banner rotativo start */
+@media(min-width: 992px) {
+    .banner-rotativo {
+        height: 680px;
+    }
+}
+@media(max-width: 425px) {
+    .banner-rotativo {
+        height: 380px;
+    }
+}
+  @media(max-width: 768px) {
+    .banner-rotativo {
+        height: 480px;
+    }
+}
+
+/*banner rotativo end */ 
+
+/* acordion card start */
+.collapsible-link::before {
+  content: '';
+  width: 14px;
+  height: 2px;
+  background: #2D2D2D;
+  position: absolute;
+  top: calc(50% - 1px);
+  right: 1rem;
+  display: block;
+  transition: all 0.3s;
+}
+
+/* Vertical line */
+.collapsible-link::after {
+  content: '';
+  width: 2px;
+  height: 14px;
+  background: #2D2D2D;
+  position: absolute;
+  top: calc(50% - 7px);
+  right: calc(1rem + 6px);
+  display: block;
+  transition: all 0.3s;
+}
+
+.collapsible-link, a:hover {
+  text-decoration: none;
+}
+  
+  
+.collapsible-link[aria-expanded='true']::after {
+  transform: rotate(90deg) translateX(-1px);
+}
+
+.collapsible-link[aria-expanded='true']::before {
+  transform: rotate(180deg);
+}
+
+/* acordion card end*/
+
+.iframe .size
+{
+    width: 800px;
+    height:550px;
+    border-top-width: 0px;
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+
+
+/* menu página interna - start */
+   #sticky-menu.sticky-top {
+      top: 85px;
+      white-space: nowrap;
+      z-index:3;
+  }
+  #nav-internal-menu  {
+      display: flex;
+  }
+
+    #nav-internal-menu .nav-item {
+      list-style: none;
+      display: block;
+      padding: 0.75rem;
+	}
+
+		#nav-internal-menu .nav-item a {
+      color: #4D4E56; 
+  }
+		
+
+@media screen and (max-width: 1280px) {
+  
+   #sticky-menu.sticky-top {
+      top: 74px;
+  }
+  
+	#nav-internal-menu {
+	  display: flex;
+    list-style: none;
+    overflow-x: auto;
+		border-bottom: 1px solid #f7f7f7;
+  	scrollbar-width: thin;
+  	-ms-overflow-style: none;
+		}
+}
+
+#nav-internal-menu::-webkit-scrollbar {
+  height: 5px;
+}
+
+#nav-internal-menu::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 0px rgba(0, 0, 0, 0);
+}
+
+#nav-internal-menu::-webkit-scrollbar-thumb {
+  height: 1px;
+  background-color: rgba(0,0,0, 0.1);
+}
+
+#nav-internal-menu::-webkit-scrollbar-thumb:hover {
+  background-color: #f1db9d;
+}
+
+#nav-internal-menu::-webkit-scrollbar:vertical {
+  display: none;
+}
+#nav-internal-menu .nav-link.active {
+    color: #0C63AA;
+    border-bottom: 4px solid #0c63aa;
+}
+
+/* menu página interna - end */

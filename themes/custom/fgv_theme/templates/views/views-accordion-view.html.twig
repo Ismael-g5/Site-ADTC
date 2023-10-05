@@ -1,0 +1,47 @@
+{#
+/**
+ * @file
+ * Theme override to display a views_accordion set of rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_accordion_view()
+ */
+#}
+ {% if title %}
+  <h3 class="js-views-accordion-group-header">{{ title }}</h3>
+{% endif %}
+{% for row in rows %}
+  {%
+    set row_classes = [
+      default_row_class ? 'views-row',
+    ]
+  %}
+<div{{ row.attributes.addClass(row_classes) }}>
+    {{ row.content }}
+  </div>
+{% endfor %}
+
+{# <div id="accordion2" class="accordion">
+<div class="card border-bottom mt-2">
+  <div id="headingTwo" class="card-header bg-white">
+    <h5 class="mb-0 font-weight-bold js-views-accordion-group-header">
+      <a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="" aria-controls="collapseTwo" class="d-block position-relative text-dark collapsible-link py-2"><span style="font-weight: normal;">{{title}}</span></a>
+    </h5>
+  </div>
+  {% for row in rows %}
+  <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordion1" class="collapse {{row.attributes.addClass(row_classes)}}">
+    <div class="card-body">
+      <p class="font-weight-light m-0">{{row.content}}</p>
+    </div>
+  </div>
+{% endfor %}
+</div>
+</div> #}

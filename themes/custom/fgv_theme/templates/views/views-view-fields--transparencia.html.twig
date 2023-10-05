@@ -1,0 +1,461 @@
+{#
+/**
+ * @file
+ * Default view template to display all the fields in a row.
+ *
+ * Available variables:
+ * - view: The view in use.
+ * - fields: A list of fields, each one contains:
+ *   - content: The output of the field.
+ *   - raw: The raw data for the field, if it exists. This is NOT output safe.
+ *   - class: The safe class ID to use.
+ *   - handler: The Views field handler controlling this field.
+ *   - inline: Whether or not the field should be inline.
+ *   - wrapper_element: An HTML element for a wrapper.
+ *   - wrapper_attributes: List of attributes for wrapper element.
+ *   - separator: An optional separator that may appear before a field.
+ *   - label: The field's label text.
+ *   - label_element: An HTML element for a label wrapper.
+ *   - label_attributes: List of attributes for label wrapper.
+ *   - label_suffix: Colon after the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ *   - has_label_colon: A boolean indicating whether to display a colon after
+ *     the label.
+ *   - element_type: An HTML element for the field content.
+ *   - element_attributes: List of attributes for HTML element for field content.
+ * - row: The raw result from the query, with all data it fetched.
+ *
+ * @see template_preprocess_views_view_fields()
+ *
+ * @ingroup themeable
+ */
+#}
+{# {% for field in fields -%}
+  {{ field.separator }}
+  {%- if field.wrapper_element -%}
+    <{{ field.wrapper_element }}{{ field.wrapper_attributes }}>
+  {%- endif %}
+  {%- if field.label -%}
+    {%- if field.label_element -%}
+      <{{ field.label_element }}{{ field.label_attributes }}>{{ field.label }}{{ field.label_suffix }}</{{ field.label_element }}>
+    {%- else -%}
+      {{ field.label }}{{ field.label_suffix }}
+    {%- endif %}
+  {%- endif %}
+  {%- if field.element_type -%}
+    <{{ field.element_type }}{{ field.element_attributes }}>{{ field.content }}</{{ field.element_type }}>
+  {%- else -%}
+    {{ field.field_image.content }}
+  {%- endif %}
+  {%- if field.wrapper_element -%}
+    </{{ field.wrapper_element }}>
+  {%- endif %}
+{%- endfor %} #}
+<style>
+.card{
+  border: 1px solid #EFEFF2 !important;
+}
+</style>
+<style>
+  #search-map {width: 100%}
+  #map {
+    width: 100%;
+    height: 500px;
+  }
+</style>
+
+<div class="d-block d-sm-nonept-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="ptrnumeros" class="" style="height: 50px;"></div>
+        <h2 class="text-dark text-center">{{fields.field_pagina_titulo_1.content}}</h2>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center pt-4">
+      <div class="text-center col-lg-6">
+        <div class="card mb-2"> <img class="card-img" src="{{ url('<front>')|render ~ fields.field_imagem_de_fundo_1.content|render|striptags|trim }}" alt="Card image">
+          <div class="card-img-overlay d-flex justify-content-center align-items-center p-0" style="	background-image: linear-gradient(to bottom, rgba(12,99,170,0.4), rgba(12,99,170,0.4));	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
+            <div class="row mx-1">
+              <div class="col-lg-12 px-0" style="">
+              <!-- titulo e subtitulo da primeira coluna ao lado 1-->
+                <h1 class="text-light mt-2 mb-0">{{fields.field_titulo_1.content}}</h1>
+                <p class="text-light text-center">{{fields.field_subtitulo.content}}</p>
+
+                <!--end titulo e subtitulo 1-->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center col-lg-6">
+        <div class="card mb-2"> <img class="card-img" src="{{ url('<front>')|render ~ fields.field_imagem_de_fundo_2.content|render|striptags|trim }}" alt="Card image">
+          <div class="card-img-overlay d-flex justify-content-center align-items-center p-0" style="	background-image: linear-gradient(to bottom, rgba(0,45,77,0.4), rgba(0,45,77,0.4));	background-position: top left;	background-size: 100%;	background-repeat: repeat;">
+            <div class="row mx-1">
+              <div class="col-lg-12 px-0" style="">
+                <!-- titulo e subtitulo da primeira coluna ao lado 1-->
+                <h1 class="text-light mt-2 mb-0">{{fields.field_titulo.content}}</h1>
+                <p class="text-light text-center">{{fields.field_subtitulo_2.content}}</p>
+                <!--end titulo e subtitulo 1-->
+
+                <!--<h1 class="text-light mt-2 mb-0">{{fields.field_titulo_2.content}}</h1>
+                <p class="text-light text-center">{{fields.field_subtitulo_imagen_2.content}}</p>-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-dark">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="fundoptr" style="height: 100px;"></div>
+        <h2 class="text-dark text-center" id="proximas-paradas">{{fields.field_pagina_titulo_2.content}}</h2>
+      </div>
+    </div>
+    <div class="row pb-2 pt-4 d-flex justify-content-center mx-auto">
+      <div class="border-bottom col-lg-5 col-5 px-0">
+        <div class="row">
+          <div class="col-lg-6 px-0">
+            <h3>{{fields.field_fundo_ptr_titulo_1.content}}</h3>
+          </div>
+          <div class="col-lg-6 px-0">
+            <h6><span style="font-weight: normal;">{{fields.field_fundo_ptr_subtitulo_1.content}}</span></h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-1 col-lg-1"></div>
+      <div class="border-bottom col-lg-5 col-5 px-0">
+        <div class="row">
+          <div class="col-lg-6 col-12 px-0">
+            <h3>{{fields.field_fundo_ptr_titulo_2.content}}</h3>
+          </div>
+          <div class="col-lg-5 px-0">
+            <h6><span style="font-weight: normal;">{{fields.field_fundo_ptr_subtitulo_2.content}}</span></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row pb-2 pt-4 d-flex justify-content-center mx-auto">
+      <div class="border-bottom col-lg-5 col-5 px-0">
+        <div class="row">
+          <div class="col-lg-6 px-0">
+            <h3>{{fields.field_fundo_ptr_titulo_3.content}}</h3>
+          </div>
+          <div class="col-lg-6 px-0 col-6" style="">
+            <h6 contenteditable="true"><span style="font-weight: normal;">{{fields.field_fundo_ptr_subtitulo_3.content}}</span></h6>
+          </div>
+        </div>
+      </div>
+      <div class="col-1 col-lg-1"></div>
+      <div class="border-bottom col-lg-5 col-5 px-0">
+        <div class="row">
+          <div class="col-lg-6 col-12 px-0">
+            <h3 class="" id="proximas-paradas">{{fields.field_fundo_ptr_titulo_4.content}}</h3>
+          </div>
+          <div class="col-lg-6 px-0" style="">
+            <h6><span style="font-weight: normal;">{{fields.field_fundo_ptr_subtitulo_4.content}}</span></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="d-block d-sm-nonept-3">
+  <div class="container">
+  <div class="texto-poligonais">
+    {{field_texto_poligonais.content}}
+  </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="poligonais" style="height: 100px;"></div>
+        <h2 class="text-dark text-center">{{fields.field_pagina_titulo_3.content}}</h2>
+      </div>
+    </div>
+    <div class="desktop-only row d-flex justify-content-center">
+      <div id="search-map">
+        <div class="search-map-title">{{ fields.field_formatted_long_text.content|render|striptags|trim }}</div>
+        <input id="pac-input" class="controls" type="text" placeholder="Pesquisa" />
+        <div id="map"></div>
+      </div>
+
+      <div class="col-md-12">{#fields.field_mapa_url_poligonais.content#}</div>
+    </div>
+    <div class="mobile-only row d-flex justify-content-center">
+      <div class="container">{{fields.field_mapa_url_poligonais.content}}</div>
+    </div>
+  </div>
+</div>
+<div class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="cadastro" style="height: 100px;"></div>
+          <h2 class="text-dark text-center">{{fields.field_pagina_titulo_5.content}}</h2>
+        </div>
+      </div>
+      <div class="row text-center mx-auto pt-4">
+        <div class="col-lg-3 col-6 px-0">
+          <div class="card border-0" style="min-height: 220px;">
+            <div class="card-body d-flex align-items-center justify-content-center">
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="text-dark">{{fields.field_cadastro_titulo_1.content}}</h2>
+                  <p class="text-dark">{{fields.field_cadastro_subtitulo_1.content}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6 px-0">
+          <div class="card" style=" background-image: url({{ url('<front>')|render ~ fields.field_cadastro_imagem_1.content|render|striptags|trim }});  background-position: center;  background-size: cover; background-repeat: no-repeat; min-height: 220px;"></div>
+        </div>
+        <div class="col-lg-3 col-6 px-0 order-2 order-lg-1">
+          <div class="card border-0" style="  min-height: 220px;">
+            <div class="card-body d-flex align-items-center justify-content-center">
+              <div class="row">
+                <div class="col-md-12">
+                  <h2 class="text-dark">{{fields.field_cadastro_titulo_2.content}}</h2>
+                  <p class="text-dark">{{fields.field_cadastro_subtitulo_2.content}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-6 px-0 order-1  order-md-3">
+          <div class="card" style=" background-image: url({{ url('<front>')|render ~ fields.field_cadastro_imagem_2.content|render|striptags|trim }});  background-position: center;  background-size: cover; background-repeat: no-repeat; min-height: 220px;"></div>
+        </div>
+      </div>
+    <div class="row text-center mx-auto">
+      <div class="col-lg-3 col-6 px-0 order-2 order-md-1">
+        <div class="card" style=" background-image: url({{ url('<front>')|render ~ fields.field_cadastro_imagem_3.content|render|striptags|trim }});  background-position: center;  background-size: cover; background-repeat: no-repeat; min-height: 220px;"></div>
+      </div>
+      <div class="col-lg-3 col-6 px-0 order-1 order-md-2">
+        <div class="card border-0" style="  min-height: 220px;">
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="text-dark">{{fields.field_cadastro_titulo_3.content}}</h2>
+                <p class="text-dark">{{fields.field_cadastro_subtitulo_3.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-6 px-0 order-1 order-md-2">
+        <div class="card" style=" background-image: url({{ url('<front>')|render ~ fields.field_cadastro_imagem_4.content|render|striptags|trim }});  background-position: center center; background-size: cover; background-repeat: no-repeat; min-height: 220px;"></div>
+      </div>
+      <div class="col-lg-3 col-6 px-0 order-2 order-md-2">
+        <div class="card border-0" style="  min-height: 220px;">
+          <div class="card-body d-flex align-items-center justify-content-center">
+            <div class="row">
+              <div class="col-md-12">
+                <h2 class="text-dark">{{fields.field_cadastro_titulo_4.content}}</h2>
+                <p class="text-dark">{{fields.field_cadastro_subtitulo_4.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div id="atendimento" style="height: 100px;"></div>
+        <h2 class="text-dark text-center">{{fields.field_pagina_titulo_4.content}}</h2>
+      </div>
+    </div>
+    <div class="row text-left pt-4">
+      <div class="col-lg-4 col-6 p-2">
+        <div class="card">
+          <div class="card-body flex-column align-items-start justify-content-end d-flex bg-light" style="	min-height: 196px;">
+            <h2 class="text-dark">{{fields.field_atendimento_titulo_1.content}}</h2>
+            <p class="text-dark">{{fields.field_atendimento_subtitulo_1.content}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-6 p-2">
+        <div class="card" style="	min-height: 196px;">
+          <div class="card-body flex-column align-items-start justify-content-end d-flex bg-light" style="">
+            <h2 class="text-dark">{{fields.field_atendimento_titulo_2.content}}</h2>
+            <p class="text-dark">{{fields.field_atendimento_subtitulo_2.content}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 p-2 col-12">
+        <div class="card">
+          <div class="card-body flex-column align-items-start justify-content-end d-flex bg-secondary" style="	min-height: 196px;">
+            <h2 class="text-dark" style="">{{fields.field_atendimento_titulo_3.content}}</h2>
+            <p class="text-dark">{{fields.field_atendimento_subtitulo_3.content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row text-left">
+      <div class="p-2 col-lg-8">
+        <div class="card" style="	background-image: url({{ url('<front>')|render ~ fields.field_atendimento_imagem_1.content|render|striptags|trim }});	background-position: center;	background-size: cover;	background-repeat: no-repeat;	height: 433px;"></div>
+      </div>
+      <div class="p-2 col-12 col-lg-4">
+        <div class="card">
+          <div class="card-body flex-column align-items-start justify-content-end d-flex bg-light desktop-only" style="height: 433px;">
+            <div class="row">
+              <div class="col-lg-12">
+                <h2 class="text-dark pr-2">{{fields.field_atendimento_titulo_4.content}}</h2>
+                <p class="text-dark">{{fields.field_atendimento_subtitulo_4.content}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body flex-column align-items-start justify-content-end d-flex bg-light mobile-only" style="height: 204px;">
+            <div class="row">
+              <div class="col-lg-12">
+                <h2 class="text-dark pr-2">{{fields.field_atendimento_titulo_4.content}}</h2>
+                <p class="text-dark">{{fields.field_atendimento_subtitulo_4.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row text-left">
+      <div class="col-lg-4 p-2 order-3 order-md-2 col-6">
+        <div class="card  mb-2" style="	min-height: 196px;">
+          <div class="card-body d-flex justify-content-center align-items-center bg-light text-dark" style="">
+            <div class="row text-left">
+              <div class="px-0 col-lg-7 d-flex justify-content-center">
+                <h2 class="">{{fields.field_atendimento_titulo_5.content}}</h2>
+              </div>
+              <div class="col-lg-5 d-flex justify-content-center">
+                <p class="">{{fields.field_atendimento_subtitulo_5.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 p-2 order-2 order-md-2 col-6">
+        <div class="card mb-2 bg-yellow text-dark" style="	min-height: 196px;">
+          <div class="card-body d-flex justify-content-center align-items-center" style="">
+            <div class="row text-left">
+              <div class="col-lg-6 px-0 d-flex justify-content-center">
+                <h2 class="">{{fields.field_atendimento_titulo_6.content}}</h2>
+              </div>
+              <div class="col-lg-6">
+                <p class="">{{fields.field_atendimento_subtitulo_6.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-12 p-2 order-1  order-md-3">
+        <div class="card" style="	background-image: url({{ url('<front>')|render ~ fields.field_atendimento_imagem_2.content|render|striptags|trim }});	background-position: center;	background-size: cover;	background-repeat: no-repeat;	min-height: 196px;"></div>
+      </div>
+    </div>
+    <div class="row text-left">
+      <div class="col-lg-4 p-2 col-12">
+        <div class="card" style="	background-image: url({{ url('<front>')|render ~ fields.field_atendimento_imagem_3.content|render|striptags|trim }});	background-position: center;	background-size: cover;	background-repeat: no-repeat;	min-height: 400px;"></div>
+      </div>
+      <div class="col-lg-4 p-2 col-6">
+        <div class="card  mb-2" style="	min-height: 196px;">
+          <div class="card-body d-flex justify-content-center align-items-center bg-light text-dark" style="">
+            <div class="row text-left">
+              <div class="col-lg-6 px-0 d-flex justify-content-center">
+                <h2 class="" contenteditable="true">{{fields.field_atendimento_titulo_7.content}}</h2>
+              </div>
+              <div class="col-lg-6 d-flex justify-content-center px-0">
+                <p class="">{{fields.field_atendimento_subtitulo_7.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card bg-aqua" style="	min-height: 196px;">
+          <div class="card-body d-flex justify-content-center align-items-center text-light" style="">
+            <div class="row text-left">
+              <div class="px-0 col-lg-6">
+                <h2 class="d-flex justify-content-center">{{fields.field_atendimento_titulo_8.content}}</h2>
+              </div>
+              <div class="col-lg-5 px-0 d-flex justify-content-center">
+                <p>{{fields.field_atendimento_subtitulo_8.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 p-2 col-6">
+        <div class="card bg-purple mb-2 text-light" style="	min-height: 196px;">
+          <div class="card-body d-flex justify-content-center align-items-center" style="">
+            <div class="row">
+              <div class="text-center col-lg-12">
+                <h2 class="mb-0">{{fields.field_atendimento_titulo_9.content}}</h2>
+                <p class="">{{fields.field_atendimento_subtitulo_9.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card" style="	min-height: 196px;">
+          <div class="card-body d-flex align-items-center justify-content-center bg-light text-dark text-center" style="">
+            <div class="row">
+              <div class="col-lg-12">
+                <h2 class="">{{fields.field_atendimento_titulo_10.content}}</h2>
+                <p class="">{{fields.field_atendimento_subtitulo_10.content}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 text-left mt-2">
+        <div id="equipe" style="height: 100px;"></div>
+        <h2 class="text-dark text-center">{{fields.field_pagina_titulo_6.content}}</h2>
+      </div>
+    </div>
+    <div class="row text-left border-bottom d-flex flex-row justify-content-center align-items-center mx-auto text-dark pt-3">
+      <div class="col-lg-6 d-flex flex-row align-items-center justify-content-start p-2 py-4">
+        <h1 class="display-1" id="proximas-paradas" style="font-weight: 700;">{{fields.field_equipe_titulo_1.content}}</h1>
+        <h6 class="mb-0 text-left pl-2"><span style="font-weight: normal;">{{fields.field_equipe_subtitulo_1.content}}</span></h6>
+      </div>
+      <div class="col-lg-6 p-2">
+        <div class="card" style="	background-image: url({{ url('<front>')|render ~ fields.field_equipe_imagem.content|render|striptags|trim }});	background-position: center;	background-size: cover;	background-repeat: no-repeat;	min-height: 220px;"></div>
+      </div>
+    </div>
+    <div class="row text-center mx-auto">
+      <div class="col-lg-12 p-2 text-dark" style="">
+        <div class="row mx-auto">
+          <div class="col-lg-6 d-flex flex-row align-items-center justify-content-start py-4 px-0" style="">
+            <img class="d-block" src="{{ url('<front>')|render ~ fields.field_icone_1.content|render|striptags|trim }}" height="80px">
+            <h1 id="proximas-paradas" class="px-1">{{fields.field_equipe_titulo_2.content}}</h1>
+            <h6 class="mb-0 text-left"><span style="font-weight: normal;">{{fields.field_equipe_subtitulo_2.content}}</span></h6>
+          </div>
+          <div class="col-lg-6 d-flex flex-row align-items-center justify-content-start py-4 px-0" style="">
+            <img class="d-block" src="{{ url('<front>')|render ~ fields.field_icone_2.content|render|striptags|trim }}" height="80px">
+            <h1 id="proximas-paradas" class="px-2">{{fields.field_equipe_titulo_3.content}}</h1>
+            <h6 class="mb-0 text-left"><span style="font-weight: normal;">{{fields.field_equipe_subtitulo_3.content}}</span></h6>
+          </div>
+        </div>
+        <div class="row mx-auto">
+          <div class="col-lg-6 d-flex flex-row align-items-center justify-content-start py-4 px-0" style="">
+            <img class="d-block" src="{{ url('<front>')|render ~ fields.field_icone_3.content|render|striptags|trim }}" height="80px">
+            <h1 id="proximas-paradas" class="px-2">{{fields.field_equipe_titulo_4.content}}</h1>
+            <h6 class="mb-0 text-left"><span style="font-weight: normal;">{{fields.field_equipe_subtitulo_4.content}}</span></h6>
+          </div>
+          <div class="col-lg-6 d-flex flex-row align-items-center justify-content-start py-4 px-0" style="">
+            <img class="d-block" src="{{ url('<front>')|render ~ fields.field_icone_4.content|render|striptags|trim }}" height="80px">
+            <h1 id="proximas-paradas" class="px-2">{{fields.field_equipe_titulo_5.content}}</h1>
+            <h6 class="mb-0 text-left"><span style="font-weight: normal;">{{fields.field_equipe_subtitulo_5.content}}</span></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

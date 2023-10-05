@@ -1,0 +1,171 @@
+{#
+/**
+ * @file
+ * Theme override to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+     Only "getter" methods (method names starting with "get", "has", or "is")
+     and a few common methods such as "id" and "label" are available. Calling
+     other methods (such as node.delete) will result in an exception.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ * - readmore: Flag for more state. Will be true if the teaser content of the
+ *   node cannot hold the main body content.
+ * - logged_in: Flag for authenticated user status. Will be true when the
+ *   current user is a logged-in member.
+ * - is_admin: Flag for admin user status. Will be true when the current user
+ *   is an administrator.
+ *
+ * @ingroup templates
+ *
+ * @see template_preprocess_node()
+ *
+ * @todo Remove the id attribute (or make it a class), because if that gets
+ *   rendered twice on a page this is invalid CSS for example: two lists
+ *   in different view modes.
+ */
+#}
+{%
+  set classes = [
+    node.bundle|clean_class,
+    node.isPromoted() ? 'is-promoted',
+    node.isSticky() ? 'is-sticky',
+    not node.isPublished() ? 'is-unpublished',
+    view_mode ? view_mode|clean_class,
+    'clearfix',
+  ]
+
+
+  %}
+  <style>
+    .field.field--name-field-data-noticia > .field__item{
+      /* position: relative; */
+      /* bottom: 15px; */
+      /* margin-left: 2rem; */
+      /* color: white; */
+    }
+
+    .field.field--name-body.field--type-text-with-summary.field--label-hidden.field__item > p >  img{
+      width: 100%;
+      height: auto;
+    }
+  </style>
+
+{# {% if file_url(node.field_imagetop.entity.uri.value) %}
+  <div class="py-5" style="background-image: linear-gradient(to bottom, rgb(0, 0, 0, 0.5), rgb(0, 0, 0, 0.5)), url(&quot;{{ file_url(node.field_imagetop.entity.uri.value) }}&quot;);	background-position: top left, center;	background-size: 100%, cover;	background-repeat: repeat, no-repeat;">
+  {% else %} #}
+  <div class="py-5" style="	background-image: url(&quot;{{base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+{# {% endif %} #}
+  <div class="container">
+      <div class="row" style="">
+        <div class="col-md-12 col-lg-6 col-10">
+          <h2 class="text-white">{{ label }}</h2>
+        </div>
+      </div>
+      <div class="row" style="">
+        <div class="col-md-12 col-lg-6 border-top">
+          <div class="row">
+            <div class="col-md-6 col-6">
+              <h6 class="mb-0 my-2 text-white" style="display: flex; align-items: center; text-transform: uppercase;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar3 mr2" viewBox="0 0 16 16" style="color: #fff !important;margin-right:1rem;">
+              <path d="M14 0H2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM1 3.857C1 3.384 1.448 3 2 3h12c.552 0 1 .384 1 .857v10.286c0 .473-.448.857-1 .857H2c-.552 0-1-.384-1-.857V3.857z"/>
+              <path d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+              </svg>
+                {{ content.field_data_noticia }}
+              </h6>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end col-6">
+          <h6 class="mb-0 d-none">{{content_share}}</h6>
+        </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-2 border-bottom">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-lg-8 px-0">
+      <a class="btn" href="{{base_path}}noticias"><i class="fa-solid fa-arrow-left mr-2 text-primary"></i>Voltar para página de notícias</a>
+    </div>
+  </div>
+</div>
+</div>
+  <div class="d-block d-sm-nonept-3 py-4">
+    <div class="container">
+      <div class="row pt-4">
+        <div class="col-md-6 d-flex flex-column justify-content-between align-items-stretch col-lg-8" style="">
+          <div class="row mb-3">
+            <div class="col-md-12 col-lg-12">
+              {{content.field_audio}}
+            </div>
+          </div>
+          <p style="font-size:xx-large">{{content.body}}</p>
+          {{content.field_imagege}}
+          <p></p>
+          <div class="row mb-3">
+              {{content.field_tags}}
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4" style="">
+        {{sidebar_second}}
+      </div>
+      </div>
+    </div>
+  </div>
+<script>
+  $('.field.field--name-field-tags.field--type-entity-reference.field--label-visually_hidden > .field__items > .mb-0.mt-2.badge.text-dark.badge-light.mr-2 > a').removeAttr('href')
+setTimeout(() => {
+  // corrige a barra de compartilhar noticia
+  $('.mb-0 > .block > span > .addtoany_share').prepend('Compartilhe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="ml-1 bi bi-share" viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>')
+  $('.mb-0 > .block > span > .a2a_button_facebook').remove();
+  $('.mb-0 > .block > span > .a2a_button_twitter').remove();
+  $('.mb-0 > .block > span > .a2a_button_email').remove();
+  $('.mb-0 > .block > span > .addtoany_share > span').remove()
+  $('.mb-0 > .block > span').removeClass('a2a_kit a2a_kit_size_32 addtoany_list')
+  $('.mb-0 > .block > span > a').css('color', 'white')
+  $('.mb-0').removeClass('d-none')
+  $('.field__item').css('font-weight', '600')
+  $('.mb-0 > .block > span > a').css('font-weight', '600')
+}, 1000);
+</script>

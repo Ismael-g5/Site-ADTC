@@ -1,0 +1,15 @@
+<div class="wrap-content">
+  <div class="image">
+    {% set image = row._entity.field_image.entity.uri.value|image_style('clipping') %}
+    <img src="{{ image }}" class="img-fluid" />
+  </div>
+  <div class="content bg-white">
+    <div class="date">
+      <span class="icon"><img src="{{ path('<front>') ~ directory ~ '/images/icon-calendar.svg' }}" style="width:16px;height:16px" /></span>
+      <span class="date-value">{{ row._entity.field_date.getValue()[0]['value']|date("d") ~ " " ~ row._entity.field_date.getValue()[0]['value']|date("M")|trans|upper ~ " " ~ row._entity.field_date.getValue()[0]['value']|date("Y") }}</span>
+    </div>
+    <div class="link">
+      <a href="{{ row._entity.field_link.getValue()[0]['uri'] }}" class="btn btn-warning" target="_blank">Acesse Aqui</a>
+    </div>
+  </div>
+</div>

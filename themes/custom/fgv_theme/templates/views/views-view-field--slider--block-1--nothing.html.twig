@@ -1,0 +1,80 @@
+{% set image_path = row._entity.field_slider_.entity.fields.uri.value | image_style('slider') %}
+{% if row._entity.field_image_mobile.entity.fields.uri.value is not null %}
+	{% set image_path_mobile = row._entity.field_image_mobile.entity.fields.uri.value | image_style('slider_mobile') %}
+{% else %}
+	{% set image_path_mobile = row._entity.field_slider_.entity.fields.uri.value | image_style('slider_mobile') %}
+{% endif %}
+
+<div class="wrap-desktop align-items-center d-none d-sm-flex" style="height:100vh;background-image:linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url({{ image_path }});background-position: center; background-size: 100%, cover;	background-repeat: repeat, no-repeat;">
+	<div class="container body-wrap">
+		<div class="row row-banner">
+			{% if row._entity.field_view_type.value is not null %}
+				{% if row._entity.field_view_type.value == 'centro' %}
+					<div class="col-12 col-banner text-center view-type-center">
+						{% if row._entity.field_legend_.value is not null %}
+							<div class="title-wrap"><h1 class="title">{{ row._entity.field_legend_.value }}</h1></div>
+						{% endif %}
+						{% if row._entity.field_description.value is not null %}
+							<div class="description">{{ row._entity.field_description.value }}</div>
+						{% endif %}
+						{% if row._entity.field_link.uri is not null %}
+							<div class="link-wrap">
+								<a href="{{ row._entity.field_link.uri }}" class="btn btn-yellow">{{ row._entity.field_link.title }}</a>
+							</div>
+						{% endif %}
+					</div>
+				{% elseif row._entity.field_view_type.value == 'esquerda' %}
+					<div class="col-6 col-banner view-type-left">
+						{% if row._entity.field_legend_.value is not null %}
+							<div class="title-wrap"><h1 class="title">{{ row._entity.field_legend_.value }}</h1></div>
+						{% endif %}
+						{% if row._entity.field_description.value is not null %}
+							<div class="description">{{ row._entity.field_description.value }}</div>
+						{% endif %}
+						{% if row._entity.field_link.uri is not null %}
+							<div class="link-wrap">
+								<a href="{{ row._entity.field_link.uri }}" class="btn btn-yellow">{{ row._entity.field_link.title }}</a>
+							</div>
+						{% endif %}
+					</div>
+				{% elseif row._entity.field_view_type.value == 'direita' %}
+					<div class="col-6"></div>
+					<div class="col-6 col-banner view-type-right">
+						{% if row._entity.field_legend_.value is not null %}
+							<div class="title-wrap"><h1 class="title">{{ row._entity.field_legend_.value }}</h1></div>
+						{% endif %}
+						{% if row._entity.field_description.value is not null %}
+							<div class="description">{{ row._entity.field_description.value }}</div>
+						{% endif %}
+						{% if row._entity.field_link.uri is not null %}
+							<div class="link-wrap">
+								<a href="{{ row._entity.field_link.uri }}" class="btn btn-yellow">{{ row._entity.field_link.title }}</a>
+							</div>
+						{% endif %}
+					</div>
+
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+<div class="wrap-mobile d-flex align-items-center d-sm-none" style="height: 54vh;background-image: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url({{ image_path_mobile }});background-position: center;background-size: 100%, cover;background-repeat: repeat, no-repeat;">
+	<div class="container body-wrap">
+		<div class="row row-banner">
+			<div class="col-12 col-banner">
+				{% if row._entity.field_legend_.value is not null %}
+					<div class="title-wrap"><h1 class="title">{{ row._entity.field_legend_.value }}</h1></div>
+				{% endif %}
+				{% if row._entity.field_description.value is not null %}
+					<div class="description">{{ row._entity.field_description.value }}</div>
+				{% endif %}
+				{% if row._entity.field_link.uri is not null %}
+					<div class="link-wrap">
+						<a href="{{ row._entity.field_link.uri }}" class="btn btn-yellow">{{ row._entity.field_link.title }}</a>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>

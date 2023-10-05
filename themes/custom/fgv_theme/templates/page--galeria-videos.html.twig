@@ -1,0 +1,73 @@
+{#
+PÁGINA GALERIA DE VÍDEOS
+#}
+{{page.navigation}}
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-white">Galeria de Vídeos</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container px-0 bg-light">
+  <div class="d-block d-sm-nonept-3 py-4 bg-light container">
+    <form class="views-exposed-form" data-drupal-selector="views-exposed-form-galeria-de-vi" action="{{ base_path }}galeria-videos" method="get" id="views-exposed-form-galeria-de-vi" accept-charset="UTF-8">
+      <div class="row mx-0 py-3 px-3 bg-white">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6 col-lg-9">
+              <div class="form-group"><label>Pesquisar</label>
+                <div class="form-group">
+                  <input type="text" data-drupal-selector="edit-keys" class="form-control py-3" id="edit-keys" name="keys"  placeholder="Palavra-chave">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 d-flex flex-row justify-content-center align-items-center col-lg-3" style="align-items: end !important;">
+            <button class="btn btn-yellow text-dark mt-2 px-5 py-2" type="submit" id="edit-submit-galeria-de-vi" value="Apply" data-drupal-selector="edit-submit-galeria-de-vi" name>Buscar</button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  {# <div class="d-block d-sm-nonept-3 py-4 bg-light" style="">
+    <div class="container px-0">
+      <div class="row mx-0 py-3 px-3 bg-white border">
+        <label>Pesquisar</label>
+        <div class="input-group">
+          <input type="text" class="form-control py-3" placeholder="Palavra-chave" aria-label="Recipient's username" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-yellow px-5 ml-3 text-dark" type="button">Buscar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> #}
+  <div class="bg-light">
+    <div class="container">
+      {{page.content}}
+    </div>
+  </div>
+
+{{page.footer}}
+
+<script>
+  // corrige o layout das fotos
+  // card
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4').addClass('my-2')
+
+  // texto
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao-video').addClass('py-2 pl-2')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao-video').css('background-color', 'white')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao-video').css('font-weight', '600')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao-video > .field-content').addClass('mb-0 text-dark')
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4 > .views-field-field-descricao-video > .field-content').css('font-size', '1.25rem')
+
+  $('.grid.views-view-grid > .row > .col-4.col-sm-4.col-md-4.col-lg-4.col-xl-4').removeClass('col-4 col-sm-4 col-lg-4 col-xl-4')
+  $('.dialog-off-canvas-main-canvas').addClass('bg-light')
+
+</script>

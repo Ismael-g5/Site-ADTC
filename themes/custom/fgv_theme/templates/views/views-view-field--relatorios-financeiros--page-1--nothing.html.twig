@@ -1,0 +1,301 @@
+{% set years = [] %}
+{% for paragraph_reference in row._entity.field_relatorios %}
+  {% set paragraph_item = paragraph_reference.entity %}
+  {% if paragraph_item.bundle == 'relatorios_financeiros' %}
+    {% set data_2 = paragraph_item.field_data.value %}
+    {% set year = data_2|date('Y') %}
+    {% if year not in years %}
+      {% set years = years|merge([year]) %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+{% if years %}
+  <!-- nav bar -->
+  <div  class="navbar-scroll-container" id="report-navbar">
+  <nav class="navbar navbar-expand-lg navbar-light  sticky-top py-0 px-0 shadow-sm mb-0" id="navbar">
+    <div class="container">
+      <div class="navbar-scroll-inner">
+        <ul class="navbar-nav flex-row">
+          {% for year in years|sort %}
+            <li id="{{ year }}" class="nav-item {% if loop.first %}active{% endif %}">
+              <a class="navbar-brand" >{{ year }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>
+<style>
+    /* Estilos para a barra de navegação */
+    .navbar-brand.active {
+      text-decoration-line: underline;
+      text-decoration-color: #FDD32B;
+      font-weight: bold;
+    }
+    .navbar-nav {
+      display: flex;
+      align-items: center;
+    }
+    .navbar-brand {
+      font-weight: normal;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .navbar-item {
+      margin-right: 10px;
+
+    }
+    .navbar-item:not(:last-child)::after {
+      content: "•"; /* Adiciona o ponto entre os itens */
+      margin-left: 10px; /* Espaçamento entre o ponto e o próximo item */
+      color: #FDD32B; /* Define a cor do ponto */
+    }
+    .navbar-scroll-container {
+        overflow-x: auto; /* Ativa o scroll horizontal */
+        white-space: nowrap; /* Impede quebrar linhas nos itens */
+        -webkit-overflow-scrolling: touch; /* Melhora o scroll em dispositivos iOS */
+    }
+    .navbar-scroll-inner {
+        display: inline-block; /* Força o contêiner a se ajustar ao tamanho do conteúdo */
+    }
+
+    #report-container.mobile {
+      background: #F5F6F9;
+    }
+
+    #report-container.mobile .list-group {
+        background: #fff !important;
+    }
+
+    #report-container.mobile .info-relatorio {
+        flex-direction: column;
+        gap: 5px !important;
+    }
+
+    #report-container .list-group-item {
+        height: fit-content !important;
+    }
+  </style>
+<script>
+  // Função para adicionar as classes 'active', 'open' e 'show' ao ano atual e ouvir os cliques para alternar entre anos
+  function setYearActive() {
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+      item.addEventListener('click', function(event) {
+        navItems.forEach(item => {
+          item.classList.remove('active', 'open', 'show');
+        });
+        item.classList.add('active', 'open', 'show');
+      });
+    });
+
+    // Inicialmente, define o ano "2023" como ativo
+    const currentYear = "2023"; // Defina o ano desejado como ativo inicialmente
+    const currentYearElement = document.getElementById(currentYear);
+    if (currentYearElement) {
+      currentYearElement.click(); // Simula um clique para ativar o ano inicial
+    }
+  }
+
+  // Chama a função para definir o ano atual como ativo ao carregar a página
+  window.addEventListener('load', setYearActive);
+</script>
+
+
+
+
+  <!-- end nav bar -->
+
+
+
+
+{% endif %}
+<div id="report-container" class="container">
+{% for year in years %}
+{% for paragraph_reference in row._entity.field_relatorios|sort((a, b) => b.entity.field_data.value|date('U') <=> a.entity.field_data.value|date('U')) %}
+    {% set paragraph_item = paragraph_reference.entity %}
+    {% if paragraph_item.bundle == 'relatorios_financeiros' %}
+      {% set data_2 = paragraph_item.field_data.value %}
+      {% if data_2|date('Y') == year %}
+        {% set file_item = paragraph_item.field_relatorio.entity %}
+        {% set file_name = paragraph_item.field_relatorio.entity.filename.value %}
+        {% set titulo = paragraph_item.field_titulo_relatorio.value %}
+        {% set data = paragraph_item.field_data.value %}
+
+
+        {% set file_uri = file_item.uri.value %}
+        {% set file_path = file_uri|replace({'public://': 'sites/default/files/'}) %}
+        {% set base_url = base_path %}
+        {% set file_url = base_url ~ file_path %}
+
+        <div class="list-group mx-auto  mb-2 bg-light" style="max-width: 1110px; margin-top:20px; display:none;">
+          <div class="list-group-item d-flex justify-content-between align-items-center" style="height: 40px;">
+            <div class="info-relatorio d-flex" style="gap:20px;">
+              <div data-year="{{ data|date('y') }}" class="data-relatorio mr-3" style="margin-top: 15px;">
+
+                <p class="date" id="{{ data|date('Y') }}">{{ data| default('') | date('d M Y') }}</p>
+
+              </div>
+
+              <div class="titulo-relatorio mt-2">
+                <h4>{{ titulo }}</h4>
+              </div>
+
+            </div>
+            <div class="pdf-link" >
+              <a href="{{ file_url }}" target="_blank"  style="gap: 8px;">
+                <span class="dowload">Download</span>
+                <img src="/sites/default/files/cloud.png" alt="Cloud" class="custom-icon" style="height: 20px;">
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endfor %}
+  </div>
+
+
+
+<script>
+// Função para substituir nomes de meses em inglês pelos equivalentes em português
+function replaceMonths() {
+    const elements = document.getElementsByClassName('date');
+
+    // Mapeamento de meses em inglês para português
+    const monthMappings = {
+        'Jan': 'JAN',
+        'Feb': 'FEV',
+        'Mar': 'MAR',
+        'Apr': 'ABR',
+        'May': 'MAI',
+        'Jun': 'JUN',
+        'Jul': 'JUL',
+        'Aug': 'AGO',
+        'Sep': 'SET',
+        'Oct': 'OUT',
+        'Nov': 'NOV',
+        'Dec': 'DEZ'
+    };
+
+    // Loop através de todos os elementos com a classe 'date'
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+
+        // Substitua cada mês no conteúdo do elemento
+        for (const month in monthMappings) {
+            if (monthMappings.hasOwnProperty(month)) {
+                element.textContent = element.textContent.replace(month, monthMappings[month]);
+            }
+        }
+    }
+}
+
+// Chame a função para fazer a substituição
+replaceMonths();
+</script>
+
+
+
+
+<script>
+  // Função para verificar se é uma versão móvel
+  function isMobile() {
+    return window.innerWidth <= 768;
+  }
+
+  // Controla a exibição da versão móvel ou desktop
+  function updateLayout() {
+    if (isMobile()) {
+      // Exibe a versão móvel
+      document.querySelectorAll('.data-relatorio').forEach(column => {
+        column.style.marginTop = '3px';
+      });
+      document.querySelectorAll('.titulo-relatorio h4').forEach(title => {
+        title.style.fontSize = '13px';
+      });
+      document.querySelectorAll('.dowload').forEach(title => {
+        title.style.display = 'none'; // Volta ao valor padrão
+      });
+
+      //adicionando layout mobile
+      const reportContainer = document.getElementById('report-container');
+
+      if (reportContainer) {
+        reportContainer.classList.add('mobile');
+      }
+
+    } else {
+      // Exibe a versão desktop
+      document.querySelectorAll('.data-relatorio').forEach(column => {
+        column.style.marginTop = '15px';
+      });
+      document.querySelectorAll('.titulo-relatorio h4').forEach(title => {
+        title.style.fontSize = ''; // Volta ao valor padrão
+      });
+    }
+  }
+
+  // Atualiza o layout ao carregar a página e ao redimensionar a janela
+  window.addEventListener('load', updateLayout);
+  window.addEventListener('resize', updateLayout);
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get navbar items
+    const navItems = document.querySelectorAll('.navbar-brand');
+
+    // Get report items
+    const reportItems = document.querySelectorAll('.list-group');
+
+    // Get the current year
+    const currentYear = new Date().getFullYear().toString();
+
+    // Function to hide all report items
+    function hideAllReports() {
+      reportItems.forEach(function(report) {
+        report.classList.remove('d-flex');
+        report.classList.add('d-none');
+      });
+    }
+
+    // Initially hide all report items except the current year's report
+    hideAllReports();
+    reportItems.forEach(function(report) {
+      const reportYear = report.querySelector('.data-relatorio p').textContent.split(' ')[2];
+      if (reportYear === currentYear) {
+        report.classList.remove('d-none');
+        report.classList.add('d-flex');
+      }
+    });
+
+    // Listen for click events on nav items
+    navItems.forEach(function(item) {
+      item.addEventListener('click', function(event) {
+        // Prevent default navigation behavior
+        event.preventDefault();
+
+        // Get the year from the clicked nav item
+        const selectedYear = event.target.textContent.trim();
+
+        // Hide all reports and then show the selected year's report
+        hideAllReports();
+        reportItems.forEach(function(report) {
+          const reportYear = report.querySelector('.data-relatorio p').textContent.split(' ')[2];
+          if (reportYear === selectedYear) {
+            report.classList.remove('d-none');
+            report.classList.add('d-flex');
+          }
+        });
+      });
+    });
+  });
+</script>
+
+
+

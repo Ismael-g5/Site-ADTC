@@ -1,0 +1,79 @@
+{#
+PÁGINA GOVERNAÇA
+#}
+
+{{page.navigation}}
+<style>
+#edit-actions-submit{
+  padding: 0px !important;
+  padding: 1rem !important;
+}
+</style>
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-white">Ouvidoria</h1>
+    </div>
+  </div>
+</div>
+</div>
+<div class="py-5">
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-lg-6" style="">
+      <h1 class="mb-3">Bem-vindo(a)</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12" style="">
+      <p>Bem-vindo (a) à Ouvidoria do Programa de Transferência de Renda. A Fundação Getulio Vargas (FGV) é a responsável pela gestão dos cadastros e pagamentos do PTR e tem o compromisso de manter uma relação de transparência e diálogo com os atingidos e atingidas e sociedade civil.&nbsp;<br></p>
+      <p>O orgulho de integrar a comunidade FGV, de compartilhar a sua missão, visão e valores, de fazer parte de suas conquistas e de contribuir para o alcance de seus objetivos futuros implica na responsabilidade de pautar nossa conduta na legalidade e nos mais elevados padrões éticos em todas as interações sejam elas internas à FGV ou naquelas realizadas em seu nome.&nbsp;&nbsp;</p>
+      <p><br>Este Canal é um recurso seguro e confidencial onde você pode manifestar suas sugestões, elogios, reclamações, denúncias e perspectivas sobre os serviços prestados pelo Programa de Transferência de Renda (PTR).</p>
+    </div>
+  </div>
+</div>
+</div>
+<div class="py-5">
+<div class="container">
+  <div class="row d-flex justify-content-center">
+    <div class="col-lg-8" style="">
+      <div class="card bg-light my-4">
+        <div class="card-body">
+          <h2 class="text-center text-dark">Ouvidoria</h2>
+          <p class="">Utilize esse espaço para manifestar sugestões, elogios, reclamações, denúncias entre outros, sobre os serviços prestados. Toda e qualquer manifestação aqui registrada será apurada dentro da estrita confidencialidade. Aquelas realizadas de boa-fé e que apresentarem uma base fundamentada serão analisadas e as ações decorrentes serão tomadas a critério exclusivo da Coordenação do PTR. Ao fazer uso da Ouvidoria do PTR, você se disponibiliza a ser contatado ou contatada para melhor entendimento e fundamentação do fato ocorrido. A veracidade das informações relatadas é de sua inteira responsabilidade.</p>
+        {{page.content}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+{{page.footer}}
+
+<script>
+/* Máscaras ER */
+function mascara(o,f){
+  v_obj=o
+  v_fun=f
+  setTimeout("execmascara()",1)
+}
+function execmascara(){
+  v_obj.value=v_fun(v_obj.value)
+}
+function mtel(v){
+  v=v.replace(/\D/g,""); //Remove tudo o que não é dígito
+  v=v.replace(/^(\d{2})(\d)/g,"($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+  v=v.replace(/(\d)(\d{4})$/,"$1-$2"); //Coloca hífen entre o quarto e o quinto dígitos
+  return v;
+}
+function id( el ){
+return document.getElementById( el );
+}
+window.onload = function(){
+$('#edit-telefone').attr('maxlength', '15');
+id('edit-telefone').onkeyup = function(){
+  mascara( this, mtel );
+}
+}
+</script>

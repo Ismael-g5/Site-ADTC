@@ -1,0 +1,54 @@
+/*!
+  CSS PURO PARA PEQUENAS EDIÇÔES,
+  SINTA SE LIVRE PARA EDITAR DURANTE O DESENVOLVIMENTO
+*/
+.slick-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  background: #0000007a;
+  padding: 12px 12px;
+}
+
+.carousel-prev.slick-arrow {
+  left: 0;
+}
+
+.carousel-next.slick-arrow {
+  right: 0
+}
+
+/* .wrap-mobile,
+.wrap-desktop {
+  display: flex!important;
+  align-items: center;
+} */
+.css-banner-home {
+  position: relative;
+}
+
+.css-banner-home .description {
+  margin-bottom: 10px;
+}
+
+.css-glossary-menu {
+  overflow: hidden;
+}
+
+#block-views-block-glossario-block-2 .form-group .views-row a {
+  text-wrap: wrap;
+}
+
+#views-exposed-form-glossario-page-2 .form-inline .form-item.form-type-textfield label {
+  text-align: center;
+  position: absolute;
+}
+
+@media screen and (max-width: 600px) {
+  .carousel-inner .mobile-only>h3 {
+    font-size: 1.1rem;
+  }
+}
+.region-navigation-glossario {
+  top: 70px;
+}

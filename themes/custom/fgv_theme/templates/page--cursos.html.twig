@@ -1,0 +1,85 @@
+{#
+PÁGINA CURSOS
+#}
+
+{{page.navigation}}
+<style>
+.card-body{
+  /* min-height: 330px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; */
+}
+.img-responsive{
+  /* width: auto !important; */
+}
+</style>
+<div class="py-5" style="	background-image: url(&quot;{{ base_path ~ directory }}/images/bg1.png&quot;);	background-position: top left;	background-size: cover;	background-repeat: no-repeat;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1 class="text-white">Cursos</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="d-block d-sm-nonept-3 pt-4 bg-light">
+  <div class="container">
+  <form class="views-exposed-form row py-3 px-3 bg-white mb-4 mx-auto" data-drupal-selector="views-exposed-form-cursos-page-1" action="{{base_path}}cursos" method="get" id="views-exposed-form-cursos-page-1" accept-charset="UTF-8">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4 mt-2">
+          <div class="form-group"><label style="font-weight: 400;">Pesquisar</label>
+            <div class="form-group">
+              <input type="text" data-drupal-selector="edit-keys" id="edit-keys" class="form-control py-3" placeholder="Palavra-chave" name="keys">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mt-2">
+                <div class="form-group"><label style="font-weight: 400;">Tipo de curso</label>
+                  <div class="select-wrapper">
+                  <select data-drupal-selector="edit-tid" class="form-select form-control select" id="edit-tid" name="tid" style="height: 3rem;"></select>
+                </div>
+              </div>
+        </div>
+        <div class="col-md-4 col-lg-3 d-flex flex-row justify-content-center align-items-center" style="align-items: end !important;">
+        <button data-drupal-selector="edit-submit-publicacoes" class="btn btn-yellow text-dark mt-2 px-5 py-2" type="submit" id="edit-submit-publicacoes">Buscar</button>
+      </div>
+      </div>
+    </div>
+  </form>
+  </div>
+  </div>
+  <div class="d-block d-sm-nonept-3 bg-light py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {# <h2 class="text-black text-left">Cursos Recentes</h2> #}
+        </div>
+      </div>
+      {{page.content}}
+    </div>
+  </div>
+{{page.footer}}
+
+<script>
+  // fita iamgem na div
+  $('.card > a > img').css('width', '-webkit-fill-available')
+
+  {# mosta o select #}
+  setTimeout(function() {
+  $('.select-wrapper > .form-select.form-control').find('option').each(function() {
+    if($(this).val() == "All"){
+      $('.select-wrapper > .form-select.form-control.select').append('<option value="'+$(this).val()+'" selected="selected">Selecione uma opção</option>')
+      return
+    }
+    $('.select-wrapper > .form-select.form-control.select').append('<option value="'+$(this).val()+'" selected="selected">'+$(this).html()+'</option>')
+  });
+  $('.select-wrapper > .form-select.form-control.select').val("All").change();
+}, 500)
+
+  // botao ver curso
+	$('.col-12.col-lg-4.mt-2 > .card > .card-body > .text-dark.ver-curso > a').html('Ver Curso').append('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/></svg>')
+  $('.col-12.col-lg-4.mt-2 > .card > .card-body > .text-dark.ver-curso > a').css('font-weight', 'bolder')
+  $('.col-12.col-lg-4.mt-2 > .card > .card-body > .text-dark.ver-curso').addClass('btn btn-light text-primary w-50')
+</script>
